@@ -6,7 +6,7 @@ import sitemap from '@astrojs/sitemap';
 
 // https://astro.build/config
 export default defineConfig({
-  site: 'https://dateagecalculator.com',
+  site: 'https://ageandtimecalculator.com',
 
   vite: {
     plugins: [tailwindcss()],
