@@ -1,0 +1,40 @@
+---
+interface FAQItem {
+  q: string;
+  a: string;
+}
+
+interface Props {
+  items: FAQItem[];
+  title?: string;
+  description?: string;
+}
+
+const { items, title = 'Frequently Asked Questions', description } = Astro.props;
+---
+
+<section>
+  <div class="text-center mb-10">
+    <h2 class="text-3xl font-heading font-bold text-foreground">{title}</h2>
+    {description && <p class="text-foreground/60 mt-2">{description}</p>}
+  </div>
+
+  <div class="max-w-3xl mx-auto space-y-3">
+    {items.map((item, i) => (
+      <details class="group rounded-2xl bg-black/4 dark:bg-white/5 border border-black/10 dark:border-white/10 overflow-hidden" id={`faq-${i}`}>
+        <summary class="flex items-center justify-between gap-4 px-6 py-4 cursor-pointer text-foreground font-semibold text-sm md:text-base list-none marker:content-none [&::-webkit-details-marker]:hidden hover:text-primary transition-colors">
+          <span>{item.q}</span>
+          <svg
+            class="w-5 h-5 text-foreground/50 shrink-0 transition-transform duration-300 group-open:rotate-180"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+          >
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+          </svg>
+        </summary>
+        <div class="px-6 pb-5 text-sm text-foreground/70 leading-relaxed">{item.a}</div>
+      </details>
+    ))}
+  </div>
+</section>

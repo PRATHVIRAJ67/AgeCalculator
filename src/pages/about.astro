@@ -1,0 +1,54 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Card from '../components/Card.astro';
+import { SITE_TITLE, SITE_URL } from '../lib/constants';
+
+const aboutSchema = {
+  "@context": "https://schema.org",
+  "@type": "AboutPage",
+  "name": `About ${SITE_TITLE}`,
+  "description": `Learn about ${SITE_TITLE} — free, accurate age, date, and time calculators. Our mission and what makes us different.`,
+  "url": `${SITE_URL}/about`,
+  "mainEntity": {
+    "@type": "Organization",
+    "name": SITE_TITLE,
+    "url": SITE_URL
+  }
+};
+---
+
+<Layout title={`About | ${SITE_TITLE}`} description={`Learn about ${SITE_TITLE} — free, accurate age, date, and time calculators. Our mission and what makes us different.`} schema={aboutSchema}>
+  <div class="container mx-auto px-4 py-16 max-w-3xl">
+    <h1 class="text-4xl md:text-5xl font-heading font-bold mb-6 tracking-tight">About {SITE_TITLE}</h1>
+
+    <Card padding="lg" class="space-y-6 text-foreground/80 leading-relaxed">
+      <p>
+        <strong class="text-foreground">{SITE_TITLE}</strong> is a free, no-sign-up suite of age, date, and time calculators. We believe working out how old you are, how many days are left until an event, or how much time has elapsed shouldn't require spreadsheets — it should just work, instantly, in your browser.
+      </p>
+
+      <h2 class="text-xl font-heading font-bold text-foreground pt-4">Our Mission</h2>
+      <p>
+        We help people find exact answers to everyday date-and-time questions: precise age down to the second, the number of days between two dates, working days for a project, and countdowns to birthdays and milestones. Every calculator accounts for leap years and varying month lengths, so the numbers are right every time.
+      </p>
+
+      <h2 class="text-xl font-heading font-bold text-foreground pt-4">What Makes Us Different</h2>
+      <ul class="space-y-2 ml-4">
+        <li class="flex items-start gap-2"><span class="text-accent">✓</span> 100% free — no sign-up, no hidden fees</li>
+        <li class="flex items-start gap-2"><span class="text-accent">✓</span> Calendar-accurate — correct handling of leap years and month-end dates</li>
+        <li class="flex items-start gap-2"><span class="text-accent">✓</span> Instant — every calculation runs locally in your browser</li>
+        <li class="flex items-start gap-2"><span class="text-accent">✓</span> Private — your dates are never sent to or stored on our servers</li>
+        <li class="flex items-start gap-2"><span class="text-accent">✓</span> A whole suite — age, date difference, time math, working days, birthdays, and more</li>
+      </ul>
+
+      <h2 class="text-xl font-heading font-bold text-foreground pt-4">How It Works</h2>
+      <p>
+        Our calculators convert the dates and times you enter into precise calendar math client-side — no server round-trip, no waiting. You can jump between our core tools (Age, Date, and Time calculators) or explore the related and fun calculators linked from every page.
+      </p>
+
+      <h2 class="text-xl font-heading font-bold text-foreground pt-4">Contact Us</h2>
+      <p>
+        Have questions, feedback, or suggestions? We'd love to hear from you. Visit our <a href="/contact" class="text-primary hover:text-primary/80 underline">contact page</a> to get in touch.
+      </p>
+    </Card>
+  </div>
+</Layout>

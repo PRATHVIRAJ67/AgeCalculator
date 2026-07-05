@@ -1,4 +1,6 @@
 ---
+import { SITE_TITLE, SITE_URL } from '../lib/constants';
+
 interface Props {
   title?: string;
   description?: string;
@@ -9,11 +11,11 @@ interface Props {
 }
 
 const {
-  title = 'Age Calculator | Accurate Age & Birthday Calculations',
+  title = `${SITE_TITLE} | Accurate Age & Birthday Calculations`,
   description = 'Calculate your exact age in years, months, days, hours, and seconds. Discover fun facts about your birthday, next milestone, and more.',
   canonicalUrl = Astro.site ? new URL(Astro.url.pathname, Astro.site).href : Astro.url.href,
   type = 'website',
-  image = '/og-image.jpg', // Placeholder
+  image = '/og-image.png',
   schema
 } = Astro.props;
 
@@ -21,8 +23,8 @@ const {
 const defaultSchema = {
   "@context": "https://schema.org",
   "@type": "WebApplication",
-  "name": "Age Calculator",
-  "url": Astro.site?.toString() || "https://example.com",
+  "name": SITE_TITLE,
+  "url": Astro.site?.toString() || SITE_URL,
   "applicationCategory": "CalculatorApplication",
   "operatingSystem": "All"
 };
@@ -41,14 +43,14 @@ const finalSchema = schema || defaultSchema;
 <meta property="og:url" content={canonicalUrl} />
 <meta property="og:title" content={title} />
 <meta property="og:description" content={description} />
-<meta property="og:image" content={new URL(image, Astro.site || 'https://example.com')} />
+<meta property="og:image" content={new URL(image, Astro.site || SITE_URL)} />
 
 <!-- Twitter -->
 <meta property="twitter:card" content="summary_large_image" />
 <meta property="twitter:url" content={canonicalUrl} />
 <meta property="twitter:title" content={title} />
 <meta property="twitter:description" content={description} />
-<meta property="twitter:image" content={new URL(image, Astro.site || 'https://example.com')} />
+<meta property="twitter:image" content={new URL(image, Astro.site || SITE_URL)} />
 
 <!-- JSON-LD Schema -->
 <script type="application/ld+json" set:html={JSON.stringify(finalSchema)} />

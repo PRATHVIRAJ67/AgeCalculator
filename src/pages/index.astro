@@ -4,6 +4,7 @@ import CalculatorForm from "../components/CalculatorForm.astro";
 import ResultCard from "../components/ResultCard.astro";
 import Card from "../components/Card.astro";
 import RelatedCalculators from "../components/RelatedCalculators.astro";
+import FAQ from "../components/FAQ.astro";
 
 const seoSchema = {
   "@context": "https://schema.org",
@@ -138,6 +139,8 @@ const faqSchema = {
     </div>
   </div>
 
+  <RelatedCalculators current="/" />
+
   <div class="container mx-auto px-4 py-8 max-w-5xl">
     <!-- Small Professional SEO Features Grid -->
     <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-20">
@@ -224,88 +227,8 @@ const faqSchema = {
       </Card>
     </div>
 
-    <div>
-      <div class="text-center mb-10">
-        <h2 class="text-3xl font-heading font-bold text-foreground">
-          Frequently Asked Questions
-        </h2>
-        <p class="text-foreground/60 mt-2">
-          Everything you need to know about our comprehensive suite of tools.
-        </p>
-      </div>
-
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-        {
-          faqs.map((faq) => (
-            <Card
-              padding="md"
-              class="bg-white/5 border-white/10 hover:bg-white/10 transition-colors shadow-lg"
-            >
-              <h3 class="font-semibold text-lg text-primary mb-2">{faq.q}</h3>
-              <p class="text-sm text-foreground/80 leading-relaxed">{faq.a}</p>
-            </Card>
-          ))
-        }
-        <Card
-          padding="md"
-          class="bg-black/4 dark:bg-white/5 border-black/10 dark:border-white/10 hover:bg-black/5 hover:dark:bg-white/10 transition-colors shadow-lg"
-        >
-          <h4 class="font-semibold text-lg text-primary mb-2">
-            What is an Age Calculator?
-          </h4>
-          <p class="text-sm text-foreground/80 leading-relaxed">
-            An Age Calculator is an online tool that helps you determine your
-            exact age in years, months, and days from your date of birth to the
-            current date or a specific target date.
-          </p>
-        </Card>
-
-        <Card
-          padding="md"
-          class="bg-black/4 dark:bg-white/5 border-black/10 dark:border-white/10 hover:bg-black/5 hover:dark:bg-white/10 transition-colors shadow-lg"
-        >
-          <h4 class="font-semibold text-lg text-primary mb-2">
-            How do I calculate my exact age?
-          </h4>
-          <p class="text-sm text-foreground/80 leading-relaxed">
-            Simply enter your date of birth into the calculator above. The tool
-            automatically computes the time elapsed from that date to today,
-            accounting for leap years and varying month lengths.
-          </p>
-        </Card>
-
-        <Card
-          padding="md"
-          class="bg-black/4 dark:bg-white/5 border-black/10 dark:border-white/10 hover:bg-black/5 hover:dark:bg-white/10 transition-colors shadow-lg"
-        >
-          <h4 class="font-semibold text-lg text-primary mb-2">
-            How does a leap year affect my age calculation?
-          </h4>
-          <p class="text-sm text-foreground/80 leading-relaxed">
-            Our algorithm precisely calculates the number of days in each month
-            and year, including February 29th during leap years. This ensures
-            that the total number of days lived is 100% accurate.
-          </p>
-        </Card>
-
-        <Card
-          padding="md"
-          class="bg-black/4 dark:bg-white/5 border-black/10 dark:border-white/10 hover:bg-black/5 hover:dark:bg-white/10 transition-colors shadow-lg"
-        >
-          <h4 class="font-semibold text-lg text-primary mb-2">
-            Can I calculate my age at a future or past date?
-          </h4>
-          <p class="text-sm text-foreground/80 leading-relaxed">
-            Yes! By default, the calculator uses today's date. However, you can
-            change the "Target Date" field to any date in the past or future to
-            find out how old you were, or will be, on that specific day.
-          </p>
-        </Card>
-      </div>
-    </div>
+    <FAQ items={faqs} description="Everything you need to know about our comprehensive suite of tools." />
   </div>
-
-  <RelatedCalculators current="/" />
 
   <!-- Inject FAQ Schema into the page -->
   <script type="application/ld+json" set:html={JSON.stringify(faqSchema)} />

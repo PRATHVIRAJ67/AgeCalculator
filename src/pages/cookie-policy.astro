@@ -1,0 +1,78 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Card from '../components/Card.astro';
+import { SITE_TITLE, CONTACT_EMAIL } from '../lib/constants';
+---
+
+<Layout title={`Cookie Policy | ${SITE_TITLE}`} description={`Cookie Policy for ${SITE_TITLE}. Read about how we use cookies, third-party advertising cookies, and how you can manage your preferences.`}>
+  <div class="container mx-auto px-4 py-16 max-w-3xl">
+    <h1 class="text-4xl md:text-5xl font-heading font-bold mb-2 tracking-tight">Cookie Policy</h1>
+    <p class="text-sm text-foreground/50 mb-10">Last updated: July 5, 2026</p>
+
+    <Card padding="lg" class="space-y-6 text-foreground/80 leading-relaxed text-sm">
+      <p>
+        This Cookie Policy explains what cookies are, how <strong class="text-foreground">{SITE_TITLE}</strong> uses them, the types of cookies we use, and how you can control your cookie preferences.
+      </p>
+      <p>
+        For further information on how we use, store, and keep your personal data secure, see our <a href="/privacy-policy" class="text-primary hover:text-primary/80 underline">Privacy Policy</a>.
+      </p>
+
+      <h2 class="text-xl font-heading font-bold text-foreground pt-4">1. What Are Cookies?</h2>
+      <p>
+        Cookies are small text files that are used to store small pieces of information. They are stored on your device when the website is loaded in your browser. These cookies help us make the website function properly, remember your preferences (such as light or dark theme), and analyze how the website performs.
+      </p>
+
+      <h2 class="text-xl font-heading font-bold text-foreground pt-4">2. How Do We Use Cookies?</h2>
+      <p>
+        We use first-party cookies (and equivalent local storage) mainly to remember your theme preference. This does not collect any personally identifiable data.
+      </p>
+      <p>
+        We may also use third-party cookies for understanding how the website performs, keeping our services secure, and providing advertisements that are relevant to you.
+      </p>
+
+      <h2 class="text-xl font-heading font-bold text-foreground pt-4">3. Types of Cookies We Use</h2>
+      <div class="overflow-x-auto my-6 rounded-xl border border-black/10 dark:border-white/10">
+        <table class="w-full text-left border-collapse text-xs md:text-sm">
+          <thead>
+            <tr class="bg-black/4 dark:bg-white/5">
+              <th class="text-foreground font-bold p-3 border-b border-black/10 dark:border-white/10">Cookie Category</th>
+              <th class="text-foreground font-bold p-3 border-b border-black/10 dark:border-white/10">Description & Purpose</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="p-3 border-b border-black/10 dark:border-white/10 text-foreground font-medium">Essential / Technical</td>
+              <td class="p-3 border-b border-black/10 dark:border-white/10 text-foreground/70">Remembers your light/dark theme choice and supports basic site functionality. Does not store personal data.</td>
+            </tr>
+            <tr>
+              <td class="p-3 text-foreground font-medium">Analytics & Performance</td>
+              <td class="p-3 text-foreground/70">May be used to measure site speed, page popularity, and navigation paths to help us improve the tools.</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h2 class="text-xl font-heading font-bold text-foreground pt-4">4. Managing and Disabling Cookies</h2>
+      <p>
+        You can manage your cookie and local storage settings through your internet browser. Different browsers provide different methods to block and delete cookies used by websites.
+      </p>
+      <p>
+        To find out more on how to manage and delete cookies, visit:
+      </p>
+      <ul class="list-disc pl-6 space-y-2">
+        <li>All About Cookies: <a href="https://allaboutcookies.org" target="_blank" rel="noopener noreferrer" class="text-primary hover:text-primary/80 underline">https://allaboutcookies.org</a></li>
+        <li>For Google Chrome: <a href="https://support.google.com/chrome/answer/95647" target="_blank" rel="noopener noreferrer" class="text-primary hover:text-primary/80 underline">Google Chrome Cookie Help</a></li>
+        <li>For Mozilla Firefox: <a href="https://support.mozilla.org/kb/enhanced-tracking-protection-firefox-desktop" target="_blank" rel="noopener noreferrer" class="text-primary hover:text-primary/80 underline">Mozilla Firefox Cookie Help</a></li>
+        <li>For Apple Safari: <a href="https://support.apple.com/guide/safari/manage-cookies-sfri11471/mac" target="_blank" rel="noopener noreferrer" class="text-primary hover:text-primary/80 underline">Apple Safari Cookie Help</a></li>
+      </ul>
+      <p class="text-foreground/50 text-xs">
+        Please note that disabling cookies/local storage may reset your theme preference back to the default each visit.
+      </p>
+
+      <h2 class="text-xl font-heading font-bold text-foreground pt-4">5. Contact Information</h2>
+      <p>
+        If you have questions regarding this Cookie Policy, please reach out to us at <a href={`mailto:${CONTACT_EMAIL}`} class="text-primary hover:text-primary/80 underline">{CONTACT_EMAIL}</a>.
+      </p>
+    </Card>
+  </div>
+</Layout>

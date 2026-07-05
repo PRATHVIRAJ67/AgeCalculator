@@ -1,0 +1,56 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Card from '../components/Card.astro';
+import { SITE_TITLE, SITE_URL, CONTACT_EMAIL } from '../lib/constants';
+---
+
+<Layout title={`Disclaimer | ${SITE_TITLE}`} description={`Disclaimer for ${SITE_TITLE}. Read about our policies regarding calculator accuracy, liability, and external links.`}>
+  <div class="container mx-auto px-4 py-16 max-w-3xl">
+    <h1 class="text-4xl md:text-5xl font-heading font-bold mb-2 tracking-tight">Disclaimer</h1>
+    <p class="text-sm text-foreground/50 mb-10">Last updated: July 5, 2026</p>
+
+    <Card padding="lg" class="space-y-6 text-foreground/80 leading-relaxed text-sm">
+      <p>
+        The information contained on the <strong class="text-foreground">{SITE_TITLE}</strong> website (the "Service"), located at <a href={SITE_URL} class="text-primary hover:text-primary/80 underline">{SITE_URL}</a>, is for general information purposes only.
+      </p>
+      <p>
+        {SITE_TITLE} assumes no responsibility for errors or omissions in the contents of the Service.
+      </p>
+
+      <h2 class="text-xl font-heading font-bold text-foreground pt-4">1. Calculation Accuracy Disclaimer</h2>
+      <p>
+        Our age, date, and time calculators use standard Gregorian calendar arithmetic and are built and tested to be as accurate as possible.
+      </p>
+      <ul class="list-disc pl-6 space-y-2">
+        <li>We make no guarantees, warranties, or representations regarding the fitness of any result for a specific legal, medical, financial, or official purpose.</li>
+        <li>Results depend entirely on the dates and times you enter. It is your responsibility to double-check your inputs and verify important results independently before relying on them for official use.</li>
+      </ul>
+
+      <h2 class="text-xl font-heading font-bold text-foreground pt-4">2. Not Professional Advice</h2>
+      <p>
+        Content and calculations on this site do not constitute legal, medical, financial, or payroll advice. Always consult a qualified professional for decisions that depend on precise or legally binding date and time calculations.
+      </p>
+
+      <h2 class="text-xl font-heading font-bold text-foreground pt-4">3. External Links Disclaimer</h2>
+      <p>
+        The Service may contain links to external websites that are not provided or maintained by, or in any way affiliated with, {SITE_TITLE}.
+      </p>
+      <p>
+        Please note that {SITE_TITLE} does not guarantee the accuracy, relevance, timeliness, or completeness of any information on these external websites. Clicking on these links is done entirely at your own risk.
+      </p>
+
+      <h2 class="text-xl font-heading font-bold text-foreground pt-4">4. "Use at Your Own Risk" Disclaimer</h2>
+      <p>
+        All results in the Service are provided "as is", with no guarantee of completeness, accuracy, timeliness, or of the results obtained from the use of this information, and without warranty of any kind, express or implied.
+      </p>
+      <p>
+        In no event will {SITE_TITLE}, its related partnerships, developers, or agents be liable to you or anyone else for any decision made or action taken in reliance on the information given by the Service, or for any consequential, special, or similar damages, even if advised of the possibility of such damages.
+      </p>
+
+      <h2 class="text-xl font-heading font-bold text-foreground pt-4">5. Contact Us</h2>
+      <p>
+        If you have any questions about this Disclaimer, please contact us at <a href={`mailto:${CONTACT_EMAIL}`} class="text-primary hover:text-primary/80 underline">{CONTACT_EMAIL}</a>.
+      </p>
+    </Card>
+  </div>
+</Layout>

@@ -1,0 +1,19 @@
+# Date Age Calculator
+
+> Free online age, date, and time calculators. Find your exact age in years, months, weeks, days, hours, minutes, and seconds; calculate the difference between any two dates; add or subtract days, hours, minutes, and seconds; count working days; and more.
+
+Key features: exact age calculation (calendar-accurate, handles leap years and month-end dates), date difference calculator, time addition/subtraction calculator, working-days counter, birthday countdown, live age ticker, plus fun calculators (planet age, zodiac signs, pet age, birthstones). No sign-up required, unlimited use, runs entirely in the browser — dates are never sent to a server.
+
+## Core tools
+- [Age Calculator](/): exact age in years, months, weeks, days, hours, minutes, and seconds
+- [Date Calculator](/date-difference): difference between two dates and times
+- [Time Calculator](/time-calculator): add or subtract days, hours, minutes, and seconds
+
+## Other pages
+- [About](/about)
+- [Contact](/contact)
+- [Privacy Policy](/privacy-policy)
+- [Terms & Conditions](/terms-and-conditions)
+- [Disclaimer](/disclaimer)
+- [Cookie Policy](/cookie-policy)
+- [DMCA Policy](/dmca)

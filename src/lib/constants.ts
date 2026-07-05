@@ -13,3 +13,7 @@ export const AVG_SLEEP_HOURS_PER_DAY = 8;
 export const AVG_MEALS_PER_DAY = 3;
 
 export const SITE_TITLE = "Date Age Calculator";
+export const SITE_DOMAIN = "dateagecalculator.com";
+export const SITE_URL = `https://${SITE_DOMAIN}`;
+export const CONTACT_EMAIL = "microtoolswebsite@gmail.com";
+export const CURRENT_YEAR = new Date().getFullYear();

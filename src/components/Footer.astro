@@ -1,12 +1,10 @@
 ---
 import { MAIN_CALCULATORS, FUN_CALCULATORS } from '../lib/calculators';
-import { SITE_TITLE } from '../lib/constants';
-
-const currentYear = new Date().getFullYear();
+import { SITE_TITLE, CURRENT_YEAR } from '../lib/constants';
 
 const footerLinks = {
   Calculators: [
-    { href: '/age-calculator', label: 'Age Calculator' },
+    { href: '/', label: 'Age Calculator' },
     { href: '/birthday-calculator', label: 'Birthday Calculator' },
     { href: '/date-difference', label: 'Date Difference' },
   ],
@@ -15,10 +13,16 @@ const footerLinks = {
     { href: '/cat-age-calculator', label: 'Cat Age' },
     { href: '/western-zodiac', label: 'Zodiac Signs' },
   ],
+  Company: [
+    { href: '/about', label: 'About' },
+    { href: '/contact', label: 'Contact' },
+  ],
   Legal: [
     { href: '/privacy-policy', label: 'Privacy Policy' },
     { href: '/terms-and-conditions', label: 'Terms & Conditions' },
     { href: '/disclaimer', label: 'Disclaimer' },
+    { href: '/cookie-policy', label: 'Cookie Policy' },
+    { href: '/dmca', label: 'DMCA' },
   ]
 };
 ---
@@ -59,7 +63,7 @@ const footerLinks = {
 
     <div class="pt-8 border-t border-black/10 dark:border-white/10 flex flex-col md:flex-row items-center justify-between gap-4">
       <p class="text-sm text-foreground/50">
-        &copy; {currentYear} Age Calculator. All rights reserved.
+        &copy; {CURRENT_YEAR} {SITE_TITLE}. All rights reserved.
       </p>
     </div>
   </div>

@@ -1,0 +1,80 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Card from '../components/Card.astro';
+import { SITE_TITLE, SITE_URL, CONTACT_EMAIL } from '../lib/constants';
+---
+
+<Layout title={`Terms & Conditions | ${SITE_TITLE}`} description={`Terms and conditions for using ${SITE_TITLE}. Read our rules regarding calculator accuracy, intellectual property, and limitations of liability.`}>
+  <div class="container mx-auto px-4 py-16 max-w-3xl">
+    <h1 class="text-4xl md:text-5xl font-heading font-bold mb-2 tracking-tight">Terms & Conditions</h1>
+    <p class="text-sm text-foreground/50 mb-10">Last updated: July 5, 2026</p>
+
+    <Card padding="lg" class="space-y-6 text-foreground/80 leading-relaxed text-sm">
+      <p>
+        Welcome to <strong class="text-foreground">{SITE_TITLE}</strong>. These Terms & Conditions outline the rules and regulations for the use of our website, located at <a href={SITE_URL} class="text-primary hover:text-primary/80 underline">{SITE_URL}</a>.
+      </p>
+      <p>
+        By accessing this website, we assume you accept these Terms & Conditions. Do not continue to use {SITE_TITLE} if you do not agree to all of the terms and conditions stated on this page.
+      </p>
+
+      <h2 class="text-xl font-heading font-bold text-foreground pt-4">1. Definitions</h2>
+      <p>
+        Throughout these Terms, the words "us", "we", "our", and "Service" refer to {SITE_TITLE} and its development team. "You", "your", and "User" refer to you as the visitor using our calculators.
+      </p>
+
+      <h2 class="text-xl font-heading font-bold text-foreground pt-4">2. Description of the Service</h2>
+      <p>
+        {SITE_TITLE} offers free online age, date, and time calculation tools, including exact age calculation, date difference calculation, time addition/subtraction, working-day counting, birthday countdowns, and related utilities. The Service is provided free of charge, requires no subscription or registration, and is offered "as is" and "as available".
+      </p>
+
+      <h2 class="text-xl font-heading font-bold text-foreground pt-4">3. Accuracy & Appropriate Use</h2>
+      <p>
+        Our calculators use standard Gregorian calendar math, accounting for leap years and varying month lengths, and are designed to be as accurate as possible for everyday use.
+      </p>
+      <ul class="list-disc pl-6 space-y-2">
+        <li><strong>Not Professional Advice:</strong> Results are provided for general, informational, and entertainment purposes. They are not a substitute for professional legal, medical, financial, or payroll advice.</li>
+        <li><strong>Verify for Official Purposes:</strong> If you need a calculation for a legal document, contract, medical record, or other official purpose, you are responsible for independently verifying the result before relying on it.</li>
+        <li><strong>Lawful Use:</strong> You agree not to use the Service in any way that is unlawful, or that could damage, disable, or impair the Service or interfere with any other party's use of it.</li>
+      </ul>
+
+      <h2 class="text-xl font-heading font-bold text-foreground pt-4">4. Intellectual Property</h2>
+      <p>
+        Unless otherwise stated, {SITE_TITLE} owns the intellectual property rights for all material, code, algorithms, styling assets, text, design, and graphics on this website. All intellectual property rights are reserved.
+      </p>
+      <p>
+        You are granted a limited license to access {SITE_TITLE} for personal, non-commercial use. You must not:
+      </p>
+      <ul class="list-disc pl-6 space-y-2">
+        <li>Republish code or design assets from our website.</li>
+        <li>Sell, rent, or sub-license our proprietary algorithms or layouts.</li>
+        <li>Reproduce, duplicate, or scrape our content for competing commercial services.</li>
+      </ul>
+
+      <h2 class="text-xl font-heading font-bold text-foreground pt-4">5. Disclaimer of Warranties & Limitation of Liability</h2>
+      <p>
+        This website is provided without any representations or warranties, express or implied. {SITE_TITLE} makes no representations or warranties in relation to this website or the information and materials provided on it.
+      </p>
+      <p>
+        To the maximum extent permitted by applicable law, in no event shall {SITE_TITLE} or its developers be liable for any direct, indirect, special, incidental, consequential, or punitive damages (including loss of business, profits, data, or reputation) arising out of or in connection with:
+      </p>
+      <ul class="list-disc pl-6 space-y-1">
+        <li>Your use or inability to use the Service.</li>
+        <li>Any decision made or action taken in reliance on a calculation produced by the Service.</li>
+        <li>Inaccuracies or technical errors on the website.</li>
+      </ul>
+
+      <h2 class="text-xl font-heading font-bold text-foreground pt-4">6. Severability & Updates</h2>
+      <p>
+        If any provision of these Terms is found to be unenforceable under applicable law, it will not affect the enforceability of the other provisions of these Terms.
+      </p>
+      <p>
+        We reserve the right to revise these Terms & Conditions at any time. By continuing to use the website, you agree to be bound by the updated terms. It is your responsibility to review this page periodically.
+      </p>
+
+      <h2 class="text-xl font-heading font-bold text-foreground pt-4">7. Contact Information</h2>
+      <p>
+        If you have any questions or require clarification regarding these Terms & Conditions, please contact our team at <a href={`mailto:${CONTACT_EMAIL}`} class="text-primary hover:text-primary/80 underline">{CONTACT_EMAIL}</a>.
+      </p>
+    </Card>
+  </div>
+</Layout>
