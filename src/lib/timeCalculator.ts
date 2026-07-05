@@ -1,33 +1,68 @@
+export interface TimeInput {
+  days: number;
+  hours: number;
+  minutes: number;
+  seconds: number;
+}
+
 export interface TimeResult {
+  /** True when a subtraction produced a negative result. */
+  negative: boolean;
+  days: number;
+  hours: number;
+  minutes: number;
+  seconds: number;
+  /** Signed total seconds. */
   totalSeconds: number;
+  decimalDays: number;
+  decimalHours: number;
+  decimalMinutes: number;
+  /** e.g. "11 days 2 hours 59 minutes 50 seconds" */
   formatted: string;
 }
 
-export function addTime(h1: number, m1: number, s1: number, h2: number, m2: number, s2: number): TimeResult {
-  const t1 = h1 * 3600 + m1 * 60 + s1;
-  const t2 = h2 * 3600 + m2 * 60 + s2;
-  const total = t1 + t2;
-  return formatSeconds(total);
+const SECONDS_PER_DAY = 86400;
+const SECONDS_PER_HOUR = 3600;
+const SECONDS_PER_MINUTE = 60;
+
+function toSeconds({ days, hours, minutes, seconds }: TimeInput): number {
+  return days * SECONDS_PER_DAY + hours * SECONDS_PER_HOUR + minutes * SECONDS_PER_MINUTE + seconds;
 }
 
-export function subtractTime(h1: number, m1: number, s1: number, h2: number, m2: number, s2: number): TimeResult {
-  const t1 = h1 * 3600 + m1 * 60 + s1;
-  const t2 = h2 * 3600 + m2 * 60 + s2;
-  let total = t1 - t2;
-  // If negative, we just return the absolute difference but could handle signs if needed.
-  if (total < 0) total = Math.abs(total);
+/**
+ * Adds or subtracts two time values expressed in days/hours/minutes/seconds.
+ * Subtraction keeps its sign so the caller can show a negative duration.
+ */
+export function calculateTime(operation: 'add' | 'subtract', a: TimeInput, b: TimeInput): TimeResult {
+  const total = operation === 'subtract' ? toSeconds(a) - toSeconds(b) : toSeconds(a) + toSeconds(b);
   return formatSeconds(total);
 }
 
 function formatSeconds(totalSeconds: number): TimeResult {
-  const h = Math.floor(totalSeconds / 3600);
-  const m = Math.floor((totalSeconds % 3600) / 60);
-  const s = totalSeconds % 60;
-  
-  let formatted = '';
-  if (h > 0) formatted += `${h} hr `;
-  if (m > 0 || h > 0) formatted += `${m} min `;
-  formatted += `${s} sec`;
-  
-  return { totalSeconds, formatted: formatted.trim() };
+  const negative = totalSeconds < 0;
+  const abs = Math.abs(totalSeconds);
+
+  const days = Math.floor(abs / SECONDS_PER_DAY);
+  const hours = Math.floor((abs % SECONDS_PER_DAY) / SECONDS_PER_HOUR);
+  const minutes = Math.floor((abs % SECONDS_PER_HOUR) / SECONDS_PER_MINUTE);
+  const seconds = abs % SECONDS_PER_MINUTE;
+
+  const parts: string[] = [];
+  if (days) parts.push(`${days} day${days !== 1 ? 's' : ''}`);
+  if (hours || days) parts.push(`${hours} hour${hours !== 1 ? 's' : ''}`);
+  if (minutes || hours || days) parts.push(`${minutes} minute${minutes !== 1 ? 's' : ''}`);
+  parts.push(`${seconds} second${seconds !== 1 ? 's' : ''}`);
+
+  return {
+    negative,
+    days,
+    hours,
+    minutes,
+    seconds,
+    totalSeconds,
+    decimalDays: totalSeconds / SECONDS_PER_DAY,
+    decimalHours: totalSeconds / SECONDS_PER_HOUR,
+    decimalMinutes: totalSeconds / SECONDS_PER_MINUTE,
+    formatted: (negative ? '- ' : '') + parts.join(' '),
+  };
 }

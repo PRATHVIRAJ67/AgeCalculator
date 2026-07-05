@@ -3,6 +3,7 @@ import Layout from '../layouts/Layout.astro';
 import CalculatorForm from '../components/CalculatorForm.astro';
 import ResultCard from '../components/ResultCard.astro';
 import Card from '../components/Card.astro';
+import RelatedCalculators from '../components/RelatedCalculators.astro';
 
 const seoSchema = {
   "@context": "https://schema.org",
@@ -120,6 +121,8 @@ const faqSchema = {
       </dl>
     </article>
   </div>
+
+  <RelatedCalculators current="/" />
 
   <!-- Inject FAQ Schema into the page -->
   <script type="application/ld+json" set:html={JSON.stringify(faqSchema)} />

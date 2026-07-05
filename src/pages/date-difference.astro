@@ -2,47 +2,48 @@
 import Layout from '../layouts/Layout.astro';
 import Card from '../components/Card.astro';
 import Button from '../components/Button.astro';
+import RelatedCalculators from '../components/RelatedCalculators.astro';
 
 const seoSchema = {
   "@context": "https://schema.org",
   "@type": "WebApplication",
-  "name": "Advanced Date & Time Difference Calculator",
+  "name": "Date Calculator",
   "url": "https://example.com/date-difference",
   "description": "Calculate the exact number of days, weeks, months, years, hours, and seconds between any two dates.",
   "applicationCategory": "CalculatorApplication"
 };
 ---
 
-<Layout title="Date Difference Calculator | Exact Days, Hours & Seconds Between Dates" description="Calculate the exact difference between two dates and times. Find out how many days, weeks, months, years, hours, and seconds apart two specific moments are." schema={seoSchema}>
-  
+<Layout title="Date Calculator | Exact Days, Weeks & Months Between Dates" description="Calculate the exact difference between two dates and times. Find out how many months, weeks, days, hours, and seconds apart two specific moments are." schema={seoSchema}>
+
   <div class="container mx-auto px-4 py-16 max-w-4xl">
     <div class="text-center mb-12">
       <h1 class="text-4xl md:text-5xl font-heading font-bold mb-4 tracking-tight">
-        Date Difference <span class="text-transparent bg-clip-text bg-gradient-to-r from-primary to-secondary">Calculator</span>
+        Date <span class="text-transparent bg-clip-text bg-gradient-to-r from-primary to-secondary">Calculator</span>
       </h1>
       <p class="text-lg text-foreground/80 max-w-2xl mx-auto">
-        Find out exactly how much time has passed—or will pass—between two exact dates and times.
+        Find out exactly how much time has passed—or will pass—between two dates and times.
       </p>
     </div>
 
-    <Card padding="lg" class="max-w-2xl mx-auto shadow-2xl border-white/20 relative overflow-hidden mb-16">
+    <Card padding="lg" class="max-w-2xl mx-auto shadow-2xl border-white/20 relative overflow-hidden mb-12">
       <form id="datediff-form" class="space-y-6 relative z-10">
         <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
           <div class="space-y-2">
             <label for="date1" class="block text-sm font-medium text-foreground/80">Start Date & Time</label>
-            <input 
-              type="datetime-local" 
-              id="date1" 
-              required 
+            <input
+              type="datetime-local"
+              id="date1"
+              required
               class="w-full h-11 px-4 rounded-xl bg-white/5 border border-white/10 text-foreground focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition-colors"
             />
           </div>
           <div class="space-y-2">
             <label for="date2" class="block text-sm font-medium text-foreground/80">End Date & Time</label>
-            <input 
-              type="datetime-local" 
-              id="date2" 
-              required 
+            <input
+              type="datetime-local"
+              id="date2"
+              required
               class="w-full h-11 px-4 rounded-xl bg-white/5 border border-white/10 text-foreground focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition-colors"
             />
           </div>
@@ -50,60 +51,56 @@ const seoSchema = {
 
         <div class="flex items-center space-x-3 bg-white/5 p-4 rounded-xl border border-white/10">
           <input type="checkbox" id="include-end" class="w-5 h-5 rounded border-white/20 text-primary focus:ring-primary focus:ring-offset-background" />
-          <label for="include-end" class="text-sm font-medium text-foreground">Include End Date in Calculation (Adds 1 Day)</label>
+          <label for="include-end" class="text-sm font-medium text-foreground">Include End Day in Calculation (Adds 1 Day)</label>
         </div>
 
         <Button type="submit" size="lg" class="w-full">Calculate Difference</Button>
       </form>
     </Card>
 
-    <div id="datediff-results" class="hidden animate-in fade-in slide-in-from-bottom-4 duration-700">
-      <h2 class="text-2xl font-heading font-bold text-center mb-6">Total Difference</h2>
-      
-      <div class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-4 gap-4">
-        <Card padding="sm" class="text-center bg-primary/10 border-primary/20">
-          <div class="text-sm text-foreground/60 mb-1">Total Years</div>
-          <div id="diff-years" class="text-3xl font-mono font-bold text-primary tabular-nums">0</div>
-        </Card>
-        <Card padding="sm" class="text-center bg-secondary/10 border-secondary/20">
-          <div class="text-sm text-foreground/60 mb-1">Total Months</div>
-          <div id="diff-months" class="text-3xl font-mono font-bold text-secondary tabular-nums">0</div>
-        </Card>
-        <Card padding="sm" class="text-center bg-accent/10 border-accent/20">
-          <div class="text-sm text-foreground/60 mb-1">Total Weeks</div>
-          <div id="diff-weeks" class="text-3xl font-mono font-bold text-accent tabular-nums">0</div>
-        </Card>
-        <Card padding="sm" class="text-center bg-white/10 border-white/20">
-          <div class="text-sm text-foreground/60 mb-1">Total Days</div>
-          <div id="diff-days" class="text-3xl font-mono font-bold text-foreground tabular-nums">0</div>
-        </Card>
-      </div>
+    <div id="datediff-results" class="hidden max-w-2xl mx-auto space-y-6 animate-in fade-in slide-in-from-bottom-4 duration-700">
+      <!-- Primary calendar difference -->
+      <Card padding="lg" class="text-center bg-primary/10 border-primary/20">
+        <h2 id="diff-heading" class="text-xl font-medium text-foreground/80 mb-2">Difference</h2>
+        <div id="diff-primary" class="text-3xl md:text-4xl font-mono font-bold text-primary">0 days</div>
+      </Card>
 
-      <h3 class="text-xl font-heading font-semibold text-center mt-8 mb-4">Detailed Time Breakdown</h3>
-      <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
-        <Card padding="sm" class="text-center bg-white/5">
-          <div class="text-sm text-foreground/60 mb-1">Hours</div>
-          <div id="diff-hours" class="text-2xl font-mono font-bold tabular-nums">0</div>
-        </Card>
-        <Card padding="sm" class="text-center bg-white/5">
-          <div class="text-sm text-foreground/60 mb-1">Minutes</div>
-          <div id="diff-minutes" class="text-2xl font-mono font-bold tabular-nums">0</div>
-        </Card>
-        <Card padding="sm" class="text-center bg-white/5">
-          <div class="text-sm text-foreground/60 mb-1">Seconds</div>
-          <div id="diff-seconds" class="text-2xl font-mono font-bold tabular-nums">0</div>
-        </Card>
-      </div>
+      <!-- Equivalent breakdown cascade -->
+      <Card padding="lg">
+        <h3 class="text-sm font-semibold uppercase tracking-wider text-foreground/50 mb-4">Which is equal to</h3>
+        <ul class="divide-y divide-white/10 font-mono">
+          <li class="flex items-baseline gap-2 py-2.5">
+            <span class="text-foreground/40 text-sm w-8 shrink-0">or</span>
+            <span class="text-lg font-semibold tabular-nums"><span id="diff-weeks">0</span> weeks <span id="diff-weeks-rem">0</span> days</span>
+          </li>
+          <li class="flex items-baseline gap-2 py-2.5">
+            <span class="text-foreground/40 text-sm w-8 shrink-0">or</span>
+            <span class="text-lg font-semibold tabular-nums"><span id="diff-days">0</span> calendar days</span>
+          </li>
+          <li class="flex items-baseline gap-2 py-2.5">
+            <span class="text-foreground/40 text-sm w-8 shrink-0">or</span>
+            <span class="text-lg font-semibold tabular-nums"><span id="diff-hours">0</span> hours</span>
+          </li>
+          <li class="flex items-baseline gap-2 py-2.5">
+            <span class="text-foreground/40 text-sm w-8 shrink-0">or</span>
+            <span class="text-lg font-semibold tabular-nums"><span id="diff-minutes">0</span> minutes</span>
+          </li>
+          <li class="flex items-baseline gap-2 py-2.5">
+            <span class="text-foreground/40 text-sm w-8 shrink-0">or</span>
+            <span class="text-lg font-semibold tabular-nums"><span id="diff-seconds">0</span> seconds</span>
+          </li>
+        </ul>
+      </Card>
     </div>
 
     <article class="prose prose-invert prose-lg max-w-none mt-20 prose-headings:font-heading prose-a:text-primary">
       <h2>Advanced Date Difference Calculations</h2>
       <p>
-        Most basic calculators only measure the number of calendar days between two points. Our <strong>Advanced Date Difference Calculator</strong> goes significantly further, allowing you to input exact times down to the minute and instantly calculating the difference in hours, minutes, and seconds.
+        Most basic calculators only measure the number of calendar days between two points. Our <strong>Date Calculator</strong> goes significantly further, allowing you to input exact times down to the minute and instantly calculating the difference in months, weeks, days, hours, minutes, and seconds.
       </p>
-      <h3>The "Include End Date" Feature</h3>
+      <h3>The "Include End Day" Feature</h3>
       <p>
-        In mathematics, subtracting two dates (e.g., Monday to Tuesday) gives a difference of exactly 1 day. However, in project management, hotel bookings, or payroll, you often need to count both the starting day and the ending day as full days. Toggling the <strong>"Include End Date"</strong> option automatically adjusts the calculation to reflect inclusive counting.
+        In mathematics, subtracting two dates (e.g., Monday to Tuesday) gives a difference of exactly 1 day. However, in project management, hotel bookings, or payroll, you often need to count both the starting day and the ending day as full days. Toggling the <strong>"Include End Day"</strong> option automatically adjusts the calculation to reflect inclusive counting.
       </p>
       <h3>Common Uses for Advanced Date Calculations</h3>
       <ul>
@@ -113,6 +110,8 @@ const seoSchema = {
       </ul>
     </article>
   </div>
+
+  <RelatedCalculators current="/date-difference" />
 </Layout>
 
 <script>
@@ -126,43 +125,50 @@ const seoSchema = {
   // Set default dates
   const now = new Date();
   const later = new Date(now.getTime() + 7 * 24 * 60 * 60 * 1000); // +1 week
-  
+
   if (d1Input && d2Input) {
     now.setMinutes(now.getMinutes() - now.getTimezoneOffset());
     d1Input.value = now.toISOString().slice(0, 16);
-    
+
     later.setMinutes(later.getMinutes() - later.getTimezoneOffset());
     d2Input.value = later.toISOString().slice(0, 16);
   }
+
+  // Build the primary "N years M months D days" line, omitting zero leading units.
+  const buildPrimary = (years: number, months: number, days: number): string => {
+    const parts: string[] = [];
+    if (years) parts.push(`${years} year${years !== 1 ? 's' : ''}`);
+    if (years || months) parts.push(`${months} month${months !== 1 ? 's' : ''}`);
+    parts.push(`${days} day${days !== 1 ? 's' : ''}`);
+    return parts.join(' ');
+  };
 
   form?.addEventListener('submit', (e) => {
     e.preventDefault();
     const d1 = new Date(d1Input.value);
     const d2 = new Date(d2Input.value);
-    
+
     if (isNaN(d1.getTime()) || isNaN(d2.getTime())) {
       alert("Please enter valid dates and times.");
       return;
     }
 
     const diff = calculateDateDifference(d1, d2, includeEndToggle.checked);
-    
-    document.getElementById('datediff-results')?.classList.remove('hidden');
-    
-    // Update main grid
-    const els = [
-      { id: 'diff-years', val: diff.years },
-      { id: 'diff-months', val: diff.months },
-      { id: 'diff-weeks', val: diff.weeks },
-      { id: 'diff-days', val: diff.days },
-      { id: 'diff-hours', val: diff.hours },
-      { id: 'diff-minutes', val: diff.minutes },
-      { id: 'diff-seconds', val: diff.seconds },
-    ];
 
-    els.forEach(el => {
-      const node = document.getElementById(el.id);
-      if (node) node.textContent = el.val.toLocaleString();
-    });
+    document.getElementById('datediff-results')?.classList.remove('hidden');
+
+    const set = (id: string, text: string) => {
+      const el = document.getElementById(id);
+      if (el) el.textContent = text;
+    };
+
+    set('diff-heading', diff.isPast ? 'Time Elapsed' : 'Time Remaining');
+    set('diff-primary', buildPrimary(diff.years, diff.months, diff.monthsRemainderDays));
+    set('diff-weeks', diff.totalWeeks.toLocaleString());
+    set('diff-weeks-rem', diff.weeksRemainderDays.toString());
+    set('diff-days', diff.totalDays.toLocaleString());
+    set('diff-hours', diff.hours.toLocaleString());
+    set('diff-minutes', diff.minutes.toLocaleString());
+    set('diff-seconds', diff.seconds.toLocaleString());
   });
 </script>

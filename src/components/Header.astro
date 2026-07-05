@@ -1,20 +1,12 @@
 ---
 import ThemeToggle from './ThemeToggle.astro';
 
-const navLinks = [
-  { href: '/age-calculator', label: 'Age Calculator' },
-  { href: '/birthday-countdown', label: 'Birthday Countdown' },
-  { href: '/date-difference', label: 'Date Difference' },
-  { href: '/time-zone-converter', label: 'Time Zones' },
-  { href: '/live-age', label: 'Live Age' },
-];
+import { MAIN_CALCULATORS, FUN_CALCULATORS } from '../lib/calculators';
 
-const funLinks = [
-  { href: '/planet-age-calculator', label: 'Planet Age' },
-  { href: '/western-zodiac', label: 'Zodiac' },
-  { href: '/dog-age-calculator', label: 'Pet Age' },
-  { href: '/birthstone', label: 'Birthstone' },
-];
+// Primary nav = the three main calculators (single source of truth)
+const navLinks = MAIN_CALCULATORS;
+// Fun dropdown shows the secondary tools
+const funLinks = FUN_CALCULATORS;
 ---
 
 <header class="sticky top-0 z-50 w-full border-b border-white/10 bg-background/80 backdrop-blur-md">

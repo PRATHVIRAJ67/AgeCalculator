@@ -1,0 +1,48 @@
+---
+import Card from './Card.astro';
+import { MAIN_CALCULATORS, FUN_CALCULATORS } from '../lib/calculators';
+
+interface Props {
+  /** href of the current page, so it is excluded from the "related" main tools */
+  current?: string;
+}
+
+const { current } = Astro.props;
+const relatedMain = MAIN_CALCULATORS.filter((c) => c.href !== current);
+---
+
+<section class="container mx-auto px-4 py-16 max-w-4xl border-t border-white/10">
+  <!-- Primary related tools -->
+  <h2 class="text-2xl font-heading font-bold mb-2">Related Calculators</h2>
+  <p class="text-foreground/60 mb-6">Our main tools work great together.</p>
+  <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-14">
+    {relatedMain.map((calc) => (
+      <a href={calc.href} class="group block focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary rounded-2xl">
+        <Card padding="md" class="h-full transition-all group-hover:border-primary/40 group-hover:bg-primary/5">
+          <div class="flex items-start gap-4">
+            <span class="text-3xl" aria-hidden="true">{calc.icon}</span>
+            <div>
+              <h3 class="font-heading font-semibold text-lg group-hover:text-primary transition-colors">{calc.label}</h3>
+              <p class="text-sm text-foreground/60 mt-1">{calc.description}</p>
+            </div>
+          </div>
+        </Card>
+      </a>
+    ))}
+  </div>
+
+  <!-- Fun / other tools -->
+  <h2 class="text-2xl font-heading font-bold mb-2">Other Calculators</h2>
+  <p class="text-foreground/60 mb-6">Explore our fun and specialized age tools.</p>
+  <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3">
+    {FUN_CALCULATORS.map((calc) => (
+      <a
+        href={calc.href}
+        class="group flex items-center gap-3 px-4 py-3 rounded-xl bg-white/5 border border-white/10 hover:border-secondary/40 hover:bg-secondary/5 transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary"
+      >
+        <span class="text-xl shrink-0" aria-hidden="true">{calc.icon}</span>
+        <span class="text-sm font-medium text-foreground/80 group-hover:text-foreground transition-colors">{calc.label}</span>
+      </a>
+    ))}
+  </div>
+</section>

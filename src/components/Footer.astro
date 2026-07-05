@@ -1,17 +1,11 @@
 ---
+import { MAIN_CALCULATORS, FUN_CALCULATORS } from '../lib/calculators';
+
 const currentYear = new Date().getFullYear();
 
 const footerLinks = {
-  Calculators: [
-    { href: '/age-calculator', label: 'Age Calculator' },
-    { href: '/birthday-calculator', label: 'Birthday Calculator' },
-    { href: '/date-difference', label: 'Date Difference' },
-  ],
-  Fun: [
-    { href: '/dog-age-calculator', label: 'Dog Age' },
-    { href: '/cat-age-calculator', label: 'Cat Age' },
-    { href: '/western-zodiac', label: 'Zodiac Signs' },
-  ],
+  Calculators: MAIN_CALCULATORS.map(({ href, label }) => ({ href, label })),
+  Fun: FUN_CALCULATORS.slice(0, 5).map(({ href, label }) => ({ href, label })),
   Legal: [
     { href: '/privacy-policy', label: 'Privacy Policy' },
     { href: '/terms-and-conditions', label: 'Terms & Conditions' },
