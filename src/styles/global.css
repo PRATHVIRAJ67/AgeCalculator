@@ -19,10 +19,18 @@
   --color-secondary-foreground: #ffffff;
 }
 
+/* Tells the browser which palette to use for native UI it renders itself
+   (select dropdown popups, scrollbars, checkboxes, date pickers) so they
+   stay legible instead of defaulting to a light popup under dark text. */
+:root {
+  color-scheme: light;
+}
+
 /* Dark theme overrides, applied when <html> has the "dark" class */
 .dark {
   --color-background: #0a0a0a;
   --color-foreground: #ededed;
+  color-scheme: dark;
 }
 
 @layer base {
@@ -42,5 +50,15 @@
   /* Global focus visible replacement for accessibility */
   *:focus-visible {
     @apply outline-none ring-2 ring-primary ring-offset-2 ring-offset-background;
+  }
+
+  /* <option> inherits its text color from the <select> (via text-foreground),
+     but browsers render the dropdown popup with its own default background —
+     it does not automatically follow color-scheme in every browser/OS combo.
+     Setting both explicitly guarantees the popup rows stay legible in both
+     themes instead of light text landing on a light popup background. */
+  select option {
+    background-color: var(--color-background);
+    color: var(--color-foreground);
   }
 }
