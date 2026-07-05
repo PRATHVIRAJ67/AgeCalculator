@@ -61,4 +61,22 @@
     background-color: var(--color-background);
     color: var(--color-foreground);
   }
+
+  /* Prevent summary disclosure triangles on all browsers/zoom levels */
+  summary {
+    list-style: none !important;
+  }
+  summary::-webkit-details-marker,
+  summary::marker {
+    display: none !important;
+    content: "" !important;
+  }
+
+  /* Clean reset for non-article lists (keeps prose lists intact) */
+  ul:not([class*="prose"]),
+  ol:not([class*="prose"]) {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
 }
