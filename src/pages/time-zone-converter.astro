@@ -101,7 +101,7 @@ const seoSchema = {
   // Populate selects
   let optionsHtml = '';
   timezones.forEach(tz => {
-    optionsHtml += `<option value="${tz.value}" class="bg-zinc-900 text-white">${tz.label}</option>`;
+    optionsHtml += `<option value="${tz.value}" class="bg-white dark:bg-zinc-900 text-black dark:text-white">${tz.label}</option>`;
   });
   
   if (fromTz && toTz) {
