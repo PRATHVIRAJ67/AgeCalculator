@@ -11,11 +11,11 @@ const { current } = Astro.props;
 const relatedMain = MAIN_CALCULATORS.filter((c) => c.href !== current);
 ---
 
-<section class="container mx-auto px-4 py-16 max-w-4xl border-t border-black/10 dark:border-white/10">
+<section class="container mx-auto px-4 pt-8 pb-12 sm:py-16 mt-[-2rem] sm:mt-0 max-w-4xl border-t border-black/10 dark:border-white/10">
   <!-- Primary related tools -->
-  <h2 class="text-2xl font-heading font-bold mb-2">Related Calculators</h2>
-  <p class="text-foreground/60 mb-6">Our main tools work great together.</p>
-  <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-14">
+  <h2 class="text-2xl font-heading font-bold mb-2 text-center sm:text-left">Related Calculators</h2>
+  <p class="text-foreground/60 mb-6 text-center sm:text-left">Our main tools work great together.</p>
+  <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-10 sm:mb-14">
     {relatedMain.map((calc) => (
       <a href={calc.href} class="group block focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary rounded-2xl">
         <Card padding="md" class="h-full transition-all group-hover:border-primary/40 group-hover:bg-primary/5">
@@ -32,8 +32,8 @@ const relatedMain = MAIN_CALCULATORS.filter((c) => c.href !== current);
   </div>
 
   <!-- Fun / other tools -->
-  <h2 class="text-2xl font-heading font-bold mb-2">Other Calculators</h2>
-  <p class="text-foreground/60 mb-6">Explore our fun and specialized age tools.</p>
+  <h2 class="text-2xl font-heading font-bold mb-2 text-center sm:text-left">Other Calculators</h2>
+  <p class="text-foreground/60 mb-6 text-center sm:text-left">Explore our fun and specialized age tools.</p>
   <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3">
     {FUN_CALCULATORS.map((calc) => (
       <a

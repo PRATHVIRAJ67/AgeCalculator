@@ -1,67 +1,95 @@
 ---
-import '../styles/global.css';
-import SEO from '../components/SEO.astro';
-import Header from '../components/Header.astro';
-import Footer from '../components/Footer.astro';
+import "../styles/global.css";
+import SEO from "../components/SEO.astro";
+import Header from "../components/Header.astro";
+import Footer from "../components/Footer.astro";
 
 interface Props {
 	title?: string;
 	description?: string;
 	canonicalUrl?: string;
-  schema?: Record<string, any>;
+	schema?: Record<string, any>;
 }
 
-const { 
-	title, 
-	description,
-	canonicalUrl,
-  schema
-} = Astro.props;
+const { title, description, canonicalUrl, schema } = Astro.props;
 ---
 
 <!doctype html>
 <html lang="en" class="text-foreground bg-background">
 	<head>
 		<!-- Google tag (gtag.js) -->
-		<script async src="https://www.googletagmanager.com/gtag/js?id=G-Y9Z48BTRTZ"></script>
+		<script
+			async
+			src="https://www.googletagmanager.com/gtag/js?id=G-Y9Z48BTRTZ"
+		></script>
 		<script is:inline>
 			window.dataLayer = window.dataLayer || [];
-			function gtag(){dataLayer.push(arguments);}
-			gtag('js', new Date());
+			function gtag() {
+				dataLayer.push(arguments);
+			}
+			gtag("js", new Date());
 
-			gtag('config', 'G-Y9Z48BTRTZ');
+			gtag("config", "G-Y9Z48BTRTZ");
 		</script>
 		<meta charset="UTF-8" />
 		<!-- Runs before first paint: applies a previously chosen dark preference. Light is the default for new visitors. -->
 		<script is:inline>
-			if (localStorage.getItem('color-theme') === 'dark') {
-				document.documentElement.classList.add('dark');
+			if (localStorage.getItem("color-theme") === "dark") {
+				document.documentElement.classList.add("dark");
 			}
 		</script>
-		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+		<meta
+			name="viewport"
+			content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"
+		/>
 		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<link rel="icon" type="image/svg+xml" sizes="16x16" href="/favicon.svg" />
-		<link rel="icon" type="image/svg+xml" sizes="32x32" href="/favicon.svg" />
-		<link rel="icon" type="image/svg+xml" sizes="48x48" href="/favicon.svg" />
+		<link
+			rel="icon"
+			type="image/svg+xml"
+			sizes="16x16"
+			href="/favicon.svg"
+		/>
+		<link
+			rel="icon"
+			type="image/svg+xml"
+			sizes="32x32"
+			href="/favicon.svg"
+		/>
+		<link
+			rel="icon"
+			type="image/svg+xml"
+			sizes="48x48"
+			href="/favicon.svg"
+		/>
 		<link rel="shortcut icon" type="image/svg+xml" href="/favicon.svg" />
 		<link rel="apple-touch-icon" sizes="180x180" href="/favicon.svg" />
 		<link rel="manifest" href="/site.webmanifest" />
 		<meta name="theme-color" content="#3b82f6" />
 		<meta name="generator" content={Astro.generator} />
 
-    <SEO title={title} description={description} canonicalUrl={canonicalUrl} schema={schema} />
+		<SEO
+			title={title}
+			description={description}
+			canonicalUrl={canonicalUrl}
+			schema={schema}
+		/>
 
 		<!-- Google Fonts -->
-		<link rel="preconnect" href="https://fonts.googleapis.com">
-		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-		<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Outfit:wght@500;600;700&family=Space+Grotesk:wght@500;600&display=swap" rel="stylesheet">
+		<link rel="preconnect" href="https://fonts.googleapis.com" />
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+		<link
+			href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Outfit:wght@500;600;700&family=Space+Grotesk:wght@500;600&display=swap"
+			rel="stylesheet"
+		/>
 	</head>
-	<body class="min-h-screen flex flex-col font-sans relative overflow-x-hidden">
-    <div class="bg-mesh"></div>
-    <Header />
+	<body
+		class="min-h-screen flex flex-col font-sans relative overflow-x-hidden"
+	>
+		<div class="bg-mesh"></div>
+		<Header />
 		<main class="flex-1">
-      <slot />
-    </main>
-    <Footer />
+			<slot />
+		</main>
+		<Footer />
 	</body>
 </html>
