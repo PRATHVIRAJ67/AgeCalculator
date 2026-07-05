@@ -1,0 +1,235 @@
+---
+import Layout from "../layouts/Layout.astro";
+import CalculatorForm from "../components/CalculatorForm.astro";
+import ResultCard from "../components/ResultCard.astro";
+import Card from "../components/Card.astro";
+import RelatedCalculators from "../components/RelatedCalculators.astro";
+import FAQ from "../components/FAQ.astro";
+
+const seoSchema = {
+  "@context": "https://schema.org",
+  "@type": "WebApplication",
+  name: "Exact Age Calculator",
+  url: "https://dateagecalculator.com/age-calculator",
+  description:
+    "Determine your exact age in years, months, weeks, days, hours, minutes, and seconds from your date of birth.",
+  applicationCategory: "CalculatorApplication",
+  operatingSystem: "All",
+  offers: {
+    "@type": "Offer",
+    price: "0",
+  },
+};
+
+const faqs = [
+  {
+    q: "How do I calculate my exact age?",
+    a: "To calculate your exact age, simply enter your date of birth (day, month, and year) in the starting field of the calculator above. The tool will instantly compute the precise calendar duration between your birth date and the designated target date, which is set to today by default.",
+  },
+  {
+    q: "How many days have I lived?",
+    a: "Your lifetime in days is computed by counting the total number of full days elapsed since your birth. Our calculator dynamically scans your entire life span and accounts for every leap year (adding February 29th), ensuring the result is completely accurate.",
+  },
+  {
+    q: "How many weeks have I lived?",
+    a: "To determine your age in weeks, the calculator takes the total number of days you have been alive and divides it by seven. The remaining days are also displayed so you know your exact age in weeks and days.",
+  },
+  {
+    q: "How many months have I lived?",
+    a: "Your age in months is calculated by counting the full months between your birth date and the current date. Because months vary in length (28, 29, 30, or 31 days), this requires exact calendar tracking to match dates correctly.",
+  },
+  {
+    q: "How many hours have I been alive?",
+    a: "We compute your lifetime hours by taking the total number of days you have lived and multiplying it by 24. This provides a fascinating breakdown of your exact age expressed in a single large time unit.",
+  },
+  {
+    q: "How many minutes have I been alive?",
+    a: "Your age in minutes is calculated by converting your total lifetime hours into minutes (multiplying by 60). This is a fun and detailed metric that shows just how much time has passed in a granular format.",
+  },
+  {
+    q: "How many seconds have I lived?",
+    a: "To find your age in seconds, the tool takes your total lifetime minutes and multiplies them by 60. Watching this massive number represents the fast, constant flow of seconds that make up your life.",
+  },
+  {
+    q: "Does this age calculator account for leap years?",
+    a: "Yes, our calculation algorithm automatically accounts for leap years. It checks every year between your date of birth and the target date, adding an extra day for each leap year (February 29th) so that the final counts are flawless.",
+  },
+  {
+    q: "Can I calculate my age on a future date?",
+    a: "Yes, you can easily find out how old you will be on a future date. Simply change the 'Calculate age at this date' field to any date in the future, and the calculator will show your future age.",
+  },
+  {
+    q: "Can I calculate my age on a past date?",
+    a: "Absolutely. By setting the target date to a day in the past, you can discover your exact age at any specific historical moment, such as your graduation, marriage, or another milestone.",
+  },
+  {
+    q: "Can I compare the ages of two different people?",
+    a: "While this specific tool is designed to calculate one person's age at a time, you can calculate the age of each person individually and compare the results in terms of total days or weeks lived.",
+  },
+  {
+    q: "On what day of the week was I born?",
+    a: "When you enter your date of birth, our system automatically calculates the exact day of the week (e.g., Monday, Friday) you were born and displays it in the fun statistics section.",
+  },
+  {
+    q: "How do I find out the exact time remaining until my next birthday?",
+    a: "You can use our dedicated Birthday Countdown page to watch a live, ticking clock that counts down the days, hours, minutes, and seconds until your next birthday celebration.",
+  },
+  {
+    q: "How accurate is this online age calculator?",
+    a: "It is extremely accurate. It uses robust calendar algorithms that align with the Gregorian calendar rules, precisely handling differing month lengths, leap years, and timezone offsets.",
+  },
+  {
+    q: "What is chronological age?",
+    a: "Chronological age is the measure of time that has passed from your birth to the present moment, typically expressed in years, months, and days. It is the standard format used for legal and official age documentation.",
+  },
+];
+
+const faqSchema = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  mainEntity: faqs.map((faq) => ({
+    "@type": "Question",
+    name: faq.q,
+    acceptedAnswer: {
+      "@type": "Answer",
+      text: faq.a,
+    },
+  })),
+};
+---
+
+<Layout
+  title="Exact Age Calculator | Calculate Age in Days, Hours & Seconds"
+  description="Use our highly accurate age calculator to find your exact age in years, months, weeks, days, hours, minutes, and seconds. Free online chronological age tool."
+  schema={seoSchema}
+>
+  <div class="container mx-auto px-4 py-12 md:py-20 lg:py-24">
+    <div class="text-center mb-12">
+      <h1
+        class="text-4xl md:text-6xl font-heading font-bold mb-6 tracking-tight text-foreground drop-shadow-sm"
+      >
+        Exact Age <span
+          class="text-transparent bg-clip-text bg-gradient-to-r from-primary to-secondary drop-shadow-sm"
+          >Calculator</span
+        >
+      </h1>
+      <p
+        class="text-lg md:text-xl text-foreground/80 max-w-2xl mx-auto font-medium"
+      >
+        Discover exactly how old you are right down to the second.
+      </p>
+    </div>
+
+    <div class="max-w-3xl mx-auto space-y-8">
+      <Card
+        padding="lg"
+        class="shadow-2xl border-black/15 dark:border-white/20 relative overflow-hidden group"
+      >
+        <!-- Subtle inner glow -->
+        <div
+          class="absolute inset-0 bg-gradient-to-b from-black/3 dark:from-white/5 to-transparent pointer-events-none"
+        >
+        </div>
+        <div class="relative z-10">
+          <CalculatorForm />
+        </div>
+      </Card>
+
+      <ResultCard />
+    </div>
+  </div>
+
+  <RelatedCalculators current="/age-calculator" />
+
+  <div class="container mx-auto px-4 py-8 max-w-5xl">
+    <!-- Small Professional SEO Features Grid -->
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-20">
+      <Card
+        padding="md"
+        class="bg-black/4 dark:bg-white/5 border-black/10 dark:border-white/10 shadow-lg text-center hover:-translate-y-1 transition-transform"
+      >
+        <div
+          class="w-12 h-12 rounded-full bg-primary/20 flex items-center justify-center mx-auto mb-4 text-primary"
+        >
+          <svg
+            class="w-6 h-6"
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
+            ><path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg
+          >
+        </div>
+        <h3 class="font-bold text-foreground mb-2">100% Precise Accuracy</h3>
+        <p class="text-sm text-foreground/60 leading-relaxed">
+          Our advanced algorithm handles complex calendar math, accounting for
+          varying month lengths and leap years to calculate your exact
+          chronological age.
+        </p>
+      </Card>
+
+      <Card
+        padding="md"
+        class="bg-black/4 dark:bg-white/5 border-black/10 dark:border-white/10 shadow-lg text-center hover:-translate-y-1 transition-transform"
+      >
+        <div
+          class="w-12 h-12 rounded-full bg-secondary/20 flex items-center justify-center mx-auto mb-4 text-secondary"
+        >
+          <svg
+            class="w-6 h-6"
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
+            ><path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg
+          >
+        </div>
+        <h3 class="font-bold text-foreground mb-2">Instant Fun Statistics</h3>
+        <p class="text-sm text-foreground/60 leading-relaxed">
+          Go beyond just years. Discover mind-blowing facts like exactly how
+          many total seconds, minutes, and hours you've been alive on Earth.
+        </p>
+      </Card>
+
+      <Card
+        padding="md"
+        class="bg-black/4 dark:bg-white/5 border-black/10 dark:border-white/10 shadow-lg text-center hover:-translate-y-1 transition-transform"
+      >
+        <div
+          class="w-12 h-12 rounded-full bg-accent/20 flex items-center justify-center mx-auto mb-4 text-accent"
+        >
+          <svg
+            class="w-6 h-6"
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
+            ><path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"
+            ></path></svg
+          >
+        </div>
+        <h3 class="font-bold text-foreground mb-2">
+          Event & Milestone Planning
+        </h3>
+        <p class="text-sm text-foreground/60 leading-relaxed">
+          Use the target date feature to calculate exactly how many days remain
+          until a significant birthday, anniversary, or official deadline.
+        </p>
+      </Card>
+    </div>
+
+    <FAQ items={faqs} description="Commonly asked questions regarding birth dates, age intervals, and time units." />
+  </div>
+
+  <!-- Inject FAQ Schema into the page -->
+  <script type="application/ld+json" set:html={JSON.stringify(faqSchema)} />
+</Layout>
