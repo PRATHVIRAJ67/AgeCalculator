@@ -30,6 +30,12 @@ export const MAIN_CALCULATORS: CalculatorMeta[] = [
     description: 'Add or subtract days, hours, minutes, and seconds.',
     icon: '⏱️',
   },
+  {
+    href: '/time-zone-converter',
+    label: 'Time Zone Converter',
+    description: 'Convert times across the world instantly.',
+    icon: '🌍',
+  },
 ];
 
 /**
@@ -60,12 +66,6 @@ export const FUN_CALCULATORS: CalculatorMeta[] = [
     label: 'Working Days',
     description: 'Count business days and weekends between dates.',
     icon: '💼',
-  },
-  {
-    href: '/time-zone-converter',
-    label: 'Time Zone Converter',
-    description: 'Convert times across the world instantly.',
-    icon: '🌍',
   },
   {
     href: '/planet-age-calculator',
