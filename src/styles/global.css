@@ -1,16 +1,28 @@
 @import "tailwindcss";
 @plugin "@tailwindcss/typography";
 
+/* Enables class-based dark mode (".dark" on <html>) instead of the media-query default */
+@custom-variant dark (&:where(.dark, .dark *));
+
 @theme {
   --font-sans: 'Inter', 'Outfit', sans-serif;
   --font-heading: 'Outfit', sans-serif;
   --font-mono: 'Space Grotesk', monospace;
 
-  --color-background: #0a0a0a;
-  --color-foreground: #ededed;
+  /* Light theme (default) */
+  --color-background: #ffffff;
+  --color-foreground: #171717;
   --color-primary: #3b82f6;
   --color-secondary: #8b5cf6;
   --color-accent: #10b981;
+  --color-primary-foreground: #ffffff;
+  --color-secondary-foreground: #ffffff;
+}
+
+/* Dark theme overrides, applied when <html> has the "dark" class */
+.dark {
+  --color-background: #0a0a0a;
+  --color-foreground: #ededed;
 }
 
 @layer base {

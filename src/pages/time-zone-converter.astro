@@ -25,23 +25,23 @@ const seoSchema = {
       </p>
     </div>
 
-    <Card padding="lg" class="max-w-2xl mx-auto shadow-2xl border-white/20 relative overflow-hidden mb-16">
+    <Card padding="lg" class="max-w-2xl mx-auto shadow-2xl border-black/15 dark:border-white/20 relative overflow-hidden mb-16">
       <form id="tz-form" class="space-y-8 relative z-10">
         
         <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
           <div class="space-y-4">
-            <h3 class="font-semibold text-foreground uppercase tracking-wider text-sm border-b border-white/10 pb-2">From Time</h3>
+            <h3 class="font-semibold text-foreground uppercase tracking-wider text-sm border-b border-black/10 dark:border-white/10 pb-2">From Time</h3>
             
             <div class="space-y-2">
               <label class="block text-xs text-foreground/60">Time Zone</label>
-              <select id="from-tz" class="w-full h-11 px-4 rounded-xl bg-white/10 border border-white/20 text-foreground focus:outline-none focus:ring-2 focus:ring-primary">
+              <select id="from-tz" class="w-full h-11 px-4 rounded-xl bg-black/5 dark:bg-white/10 border border-black/15 dark:border-white/20 text-foreground focus:outline-none focus:ring-2 focus:ring-primary">
                 <!-- Will be populated by JS -->
               </select>
             </div>
 
             <div class="space-y-2">
               <label class="block text-xs text-foreground/60">Date & Time</label>
-              <input type="datetime-local" id="from-datetime" required class="w-full h-11 px-4 rounded-xl bg-white/5 border border-white/10 text-foreground focus:outline-none focus:ring-2 focus:ring-primary" />
+              <input type="datetime-local" id="from-datetime" required class="w-full h-11 px-4 rounded-xl bg-black/4 dark:bg-white/5 border border-black/10 dark:border-white/10 text-foreground focus:outline-none focus:ring-2 focus:ring-primary" />
             </div>
           </div>
 
@@ -53,11 +53,11 @@ const seoSchema = {
           </div>
 
           <div class="space-y-4">
-            <h3 class="font-semibold text-foreground uppercase tracking-wider text-sm border-b border-white/10 pb-2">To Time</h3>
+            <h3 class="font-semibold text-foreground uppercase tracking-wider text-sm border-b border-black/10 dark:border-white/10 pb-2">To Time</h3>
             
             <div class="space-y-2">
               <label class="block text-xs text-foreground/60">Target Time Zone</label>
-              <select id="to-tz" class="w-full h-11 px-4 rounded-xl bg-white/10 border border-white/20 text-foreground focus:outline-none focus:ring-2 focus:ring-primary">
+              <select id="to-tz" class="w-full h-11 px-4 rounded-xl bg-black/5 dark:bg-white/10 border border-black/15 dark:border-white/20 text-foreground focus:outline-none focus:ring-2 focus:ring-primary">
                 <!-- Will be populated by JS -->
               </select>
             </div>

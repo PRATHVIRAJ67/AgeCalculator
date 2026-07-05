@@ -26,7 +26,7 @@ const seoSchema = {
       </p>
     </div>
 
-    <Card padding="lg" class="max-w-2xl mx-auto shadow-2xl border-white/20 relative overflow-hidden mb-12">
+    <Card padding="lg" class="max-w-2xl mx-auto shadow-2xl border-black/15 dark:border-white/20 relative overflow-hidden mb-12">
       <form id="datediff-form" class="space-y-6 relative z-10">
         <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
           <div class="space-y-2">
@@ -35,7 +35,7 @@ const seoSchema = {
               type="datetime-local"
               id="date1"
               required
-              class="w-full h-11 px-4 rounded-xl bg-white/5 border border-white/10 text-foreground focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition-colors"
+              class="w-full h-11 px-4 rounded-xl bg-black/4 dark:bg-white/5 border border-black/10 dark:border-white/10 text-foreground focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition-colors"
             />
           </div>
           <div class="space-y-2">
@@ -44,13 +44,13 @@ const seoSchema = {
               type="datetime-local"
               id="date2"
               required
-              class="w-full h-11 px-4 rounded-xl bg-white/5 border border-white/10 text-foreground focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition-colors"
+              class="w-full h-11 px-4 rounded-xl bg-black/4 dark:bg-white/5 border border-black/10 dark:border-white/10 text-foreground focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition-colors"
             />
           </div>
         </div>
 
-        <div class="flex items-center space-x-3 bg-white/5 p-4 rounded-xl border border-white/10">
-          <input type="checkbox" id="include-end" class="w-5 h-5 rounded border-white/20 text-primary focus:ring-primary focus:ring-offset-background" />
+        <div class="flex items-center space-x-3 bg-black/4 dark:bg-white/5 p-4 rounded-xl border border-black/10 dark:border-white/10">
+          <input type="checkbox" id="include-end" class="w-5 h-5 rounded border-black/15 dark:border-white/20 text-primary focus:ring-primary focus:ring-offset-background" />
           <label for="include-end" class="text-sm font-medium text-foreground">Include End Day in Calculation (Adds 1 Day)</label>
         </div>
 
@@ -68,7 +68,7 @@ const seoSchema = {
       <!-- Equivalent breakdown cascade -->
       <Card padding="lg">
         <h3 class="text-sm font-semibold uppercase tracking-wider text-foreground/50 mb-4">Which is equal to</h3>
-        <ul class="divide-y divide-white/10 font-mono">
+        <ul class="divide-y divide-black/10 dark:divide-white/10 font-mono">
           <li class="flex items-baseline gap-2 py-2.5">
             <span class="text-foreground/40 text-sm w-8 shrink-0">or</span>
             <span class="text-lg font-semibold tabular-nums"><span id="diff-weeks">0</span> weeks <span id="diff-weeks-rem">0</span> days</span>
