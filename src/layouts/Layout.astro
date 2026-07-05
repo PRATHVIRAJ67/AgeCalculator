@@ -20,13 +20,19 @@ const {
 ---
 
 <!doctype html>
-<html lang="en" class="dark text-foreground bg-background">
+<html lang="en" class="text-foreground bg-background">
 	<head>
 		<meta charset="UTF-8" />
+		<!-- Runs before first paint: applies a previously chosen dark preference. Light is the default for new visitors. -->
+		<script is:inline>
+			if (localStorage.getItem('color-theme') === 'dark') {
+				document.documentElement.classList.add('dark');
+			}
+		</script>
 		<meta name="viewport" content="width=device-width" />
 		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 		<meta name="generator" content={Astro.generator} />
-		
+
     <SEO title={title} description={description} canonicalUrl={canonicalUrl} schema={schema} />
 
 		<!-- Google Fonts -->

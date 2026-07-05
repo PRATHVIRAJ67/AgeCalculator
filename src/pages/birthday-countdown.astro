@@ -25,7 +25,7 @@ const seoSchema = {
       </p>
     </div>
 
-    <Card padding="lg" class="max-w-xl mx-auto shadow-2xl border-white/20 relative overflow-hidden mb-12">
+    <Card padding="lg" class="max-w-xl mx-auto shadow-2xl border-black/15 dark:border-white/20 relative overflow-hidden mb-12">
       <form id="countdown-form" class="space-y-6 relative z-10">
         <div class="space-y-2">
           <label for="bday" class="block text-sm font-medium text-foreground/80">Date of Birth</label>
@@ -33,7 +33,7 @@ const seoSchema = {
             type="date" 
             id="bday" 
             required 
-            class="w-full h-11 px-4 rounded-xl bg-white/5 border border-white/10 text-foreground focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition-colors"
+            class="w-full h-11 px-4 rounded-xl bg-black/4 dark:bg-white/5 border border-black/10 dark:border-white/10 text-foreground focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition-colors"
           />
         </div>
         <Button type="submit" size="lg" class="w-full">Start Countdown Clock</Button>
@@ -46,22 +46,22 @@ const seoSchema = {
       </div>
 
       <div class="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6 max-w-3xl mx-auto">
-        <Card padding="lg" class="text-center bg-white/5 border-white/10 relative overflow-hidden group">
+        <Card padding="lg" class="text-center bg-black/4 dark:bg-white/5 border-black/10 dark:border-white/10 relative overflow-hidden group">
           <div class="absolute inset-0 bg-primary/10 opacity-0 group-hover:opacity-100 transition-opacity"></div>
           <div id="cd-days" class="text-5xl md:text-6xl font-mono font-bold text-foreground tabular-nums mb-2">0</div>
           <div class="text-sm font-medium text-foreground/60 uppercase tracking-widest">Days</div>
         </Card>
-        <Card padding="lg" class="text-center bg-white/5 border-white/10 relative overflow-hidden group">
+        <Card padding="lg" class="text-center bg-black/4 dark:bg-white/5 border-black/10 dark:border-white/10 relative overflow-hidden group">
           <div class="absolute inset-0 bg-secondary/10 opacity-0 group-hover:opacity-100 transition-opacity"></div>
           <div id="cd-hours" class="text-5xl md:text-6xl font-mono font-bold text-foreground tabular-nums mb-2">0</div>
           <div class="text-sm font-medium text-foreground/60 uppercase tracking-widest">Hours</div>
         </Card>
-        <Card padding="lg" class="text-center bg-white/5 border-white/10 relative overflow-hidden group">
+        <Card padding="lg" class="text-center bg-black/4 dark:bg-white/5 border-black/10 dark:border-white/10 relative overflow-hidden group">
           <div class="absolute inset-0 bg-accent/10 opacity-0 group-hover:opacity-100 transition-opacity"></div>
           <div id="cd-minutes" class="text-5xl md:text-6xl font-mono font-bold text-foreground tabular-nums mb-2">0</div>
           <div class="text-sm font-medium text-foreground/60 uppercase tracking-widest">Minutes</div>
         </Card>
-        <Card padding="lg" class="text-center bg-white/5 border-white/10 relative overflow-hidden group">
+        <Card padding="lg" class="text-center bg-black/4 dark:bg-white/5 border-black/10 dark:border-white/10 relative overflow-hidden group">
           <div class="absolute inset-0 bg-pink-500/10 opacity-0 group-hover:opacity-100 transition-opacity"></div>
           <div id="cd-seconds" class="text-5xl md:text-6xl font-mono font-bold text-primary tabular-nums mb-2 drop-shadow-[0_0_8px_rgba(59,130,246,0.5)]">0</div>
           <div class="text-sm font-medium text-foreground/60 uppercase tracking-widest">Seconds</div>

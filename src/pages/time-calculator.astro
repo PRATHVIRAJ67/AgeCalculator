@@ -26,7 +26,7 @@ const seoSchema = {
       </p>
     </div>
 
-    <Card padding="lg" class="max-w-xl mx-auto shadow-2xl border-white/20 relative overflow-hidden mb-12">
+    <Card padding="lg" class="max-w-xl mx-auto shadow-2xl border-black/15 dark:border-white/20 relative overflow-hidden mb-12">
       <form id="time-form" class="space-y-8 relative z-10">
 
         <!-- Time 1 -->
@@ -35,26 +35,26 @@ const seoSchema = {
           <div class="grid grid-cols-4 gap-3">
             <div>
               <label for="d1" class="block text-xs text-foreground/60 mb-1">Days</label>
-              <input type="number" id="d1" min="0" value="0" class="w-full h-11 px-3 rounded-xl bg-white/5 border border-white/10 text-center" />
+              <input type="number" id="d1" min="0" value="0" class="w-full h-11 px-3 rounded-xl bg-black/4 dark:bg-white/5 border border-black/10 dark:border-white/10 text-center" />
             </div>
             <div>
               <label for="h1" class="block text-xs text-foreground/60 mb-1">Hours</label>
-              <input type="number" id="h1" min="0" value="0" class="w-full h-11 px-3 rounded-xl bg-white/5 border border-white/10 text-center" />
+              <input type="number" id="h1" min="0" value="0" class="w-full h-11 px-3 rounded-xl bg-black/4 dark:bg-white/5 border border-black/10 dark:border-white/10 text-center" />
             </div>
             <div>
               <label for="m1" class="block text-xs text-foreground/60 mb-1">Minutes</label>
-              <input type="number" id="m1" min="0" value="0" class="w-full h-11 px-3 rounded-xl bg-white/5 border border-white/10 text-center" />
+              <input type="number" id="m1" min="0" value="0" class="w-full h-11 px-3 rounded-xl bg-black/4 dark:bg-white/5 border border-black/10 dark:border-white/10 text-center" />
             </div>
             <div>
               <label for="s1" class="block text-xs text-foreground/60 mb-1">Seconds</label>
-              <input type="number" id="s1" min="0" value="0" class="w-full h-11 px-3 rounded-xl bg-white/5 border border-white/10 text-center" />
+              <input type="number" id="s1" min="0" value="0" class="w-full h-11 px-3 rounded-xl bg-black/4 dark:bg-white/5 border border-black/10 dark:border-white/10 text-center" />
             </div>
           </div>
         </div>
 
         <!-- Operation -->
         <div class="flex justify-center">
-          <select id="operation" class="h-11 px-6 rounded-xl bg-white/10 border border-white/20 text-foreground font-bold focus:outline-none focus:ring-2 focus:ring-primary">
+          <select id="operation" class="h-11 px-6 rounded-xl bg-black/5 dark:bg-white/10 border border-black/15 dark:border-white/20 text-foreground font-bold focus:outline-none focus:ring-2 focus:ring-primary">
             <option value="add" class="text-black">Add (+)</option>
             <option value="subtract" class="text-black">Subtract (−)</option>
           </select>
@@ -66,19 +66,19 @@ const seoSchema = {
           <div class="grid grid-cols-4 gap-3">
             <div>
               <label for="d2" class="block text-xs text-foreground/60 mb-1">Days</label>
-              <input type="number" id="d2" min="0" value="0" class="w-full h-11 px-3 rounded-xl bg-white/5 border border-white/10 text-center" />
+              <input type="number" id="d2" min="0" value="0" class="w-full h-11 px-3 rounded-xl bg-black/4 dark:bg-white/5 border border-black/10 dark:border-white/10 text-center" />
             </div>
             <div>
               <label for="h2" class="block text-xs text-foreground/60 mb-1">Hours</label>
-              <input type="number" id="h2" min="0" value="0" class="w-full h-11 px-3 rounded-xl bg-white/5 border border-white/10 text-center" />
+              <input type="number" id="h2" min="0" value="0" class="w-full h-11 px-3 rounded-xl bg-black/4 dark:bg-white/5 border border-black/10 dark:border-white/10 text-center" />
             </div>
             <div>
               <label for="m2" class="block text-xs text-foreground/60 mb-1">Minutes</label>
-              <input type="number" id="m2" min="0" value="0" class="w-full h-11 px-3 rounded-xl bg-white/5 border border-white/10 text-center" />
+              <input type="number" id="m2" min="0" value="0" class="w-full h-11 px-3 rounded-xl bg-black/4 dark:bg-white/5 border border-black/10 dark:border-white/10 text-center" />
             </div>
             <div>
               <label for="s2" class="block text-xs text-foreground/60 mb-1">Seconds</label>
-              <input type="number" id="s2" min="0" value="0" class="w-full h-11 px-3 rounded-xl bg-white/5 border border-white/10 text-center" />
+              <input type="number" id="s2" min="0" value="0" class="w-full h-11 px-3 rounded-xl bg-black/4 dark:bg-white/5 border border-black/10 dark:border-white/10 text-center" />
             </div>
           </div>
         </div>
@@ -95,7 +95,7 @@ const seoSchema = {
 
       <Card padding="lg">
         <h3 class="text-sm font-semibold uppercase tracking-wider text-foreground/50 mb-4">Which is equal to</h3>
-        <ul class="divide-y divide-white/10 font-mono">
+        <ul class="divide-y divide-black/10 dark:divide-white/10 font-mono">
           <li class="flex items-baseline gap-2 py-2.5">
             <span class="text-foreground/40 text-sm w-8 shrink-0">=</span>
             <span class="text-lg font-semibold tabular-nums"><span id="res-dec-days">0</span> days</span>

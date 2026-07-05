@@ -25,7 +25,7 @@ const seoSchema = {
       </p>
     </div>
 
-    <Card padding="lg" class="max-w-xl mx-auto shadow-2xl border-white/20 relative overflow-hidden mb-16">
+    <Card padding="lg" class="max-w-xl mx-auto shadow-2xl border-black/15 dark:border-white/20 relative overflow-hidden mb-16">
       <form id="planet-form" class="space-y-6 relative z-10">
         <div class="space-y-2">
           <label for="dob" class="block text-sm font-medium text-foreground/80">Date of Birth</label>
@@ -33,7 +33,7 @@ const seoSchema = {
             type="date" 
             id="dob" 
             required 
-            class="w-full h-11 px-4 rounded-xl bg-white/5 border border-white/10 text-foreground focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition-colors"
+            class="w-full h-11 px-4 rounded-xl bg-black/4 dark:bg-white/5 border border-black/10 dark:border-white/10 text-foreground focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition-colors"
           />
         </div>
         <Button type="submit" size="lg" class="w-full">Calculate Planet Ages</Button>
@@ -97,7 +97,7 @@ const seoSchema = {
     if (grid) {
       grid.innerHTML = '';
       for (const [planet, age] of Object.entries(ages)) {
-        const colorClass = planetColors[planet] || 'bg-white/10 border-white/20 text-foreground';
+        const colorClass = planetColors[planet] || 'bg-black/5 dark:bg-white/10 border-black/15 dark:border-white/20 text-foreground';
         grid.innerHTML += `
           <div class="p-4 rounded-2xl border ${colorClass} text-center shadow-lg backdrop-blur-sm">
             <h3 class="text-sm font-semibold uppercase tracking-wider mb-2 opacity-80">${planet}</h3>

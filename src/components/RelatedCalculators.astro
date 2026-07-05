@@ -11,7 +11,7 @@ const { current } = Astro.props;
 const relatedMain = MAIN_CALCULATORS.filter((c) => c.href !== current);
 ---
 
-<section class="container mx-auto px-4 py-16 max-w-4xl border-t border-white/10">
+<section class="container mx-auto px-4 py-16 max-w-4xl border-t border-black/10 dark:border-white/10">
   <!-- Primary related tools -->
   <h2 class="text-2xl font-heading font-bold mb-2">Related Calculators</h2>
   <p class="text-foreground/60 mb-6">Our main tools work great together.</p>
@@ -38,7 +38,7 @@ const relatedMain = MAIN_CALCULATORS.filter((c) => c.href !== current);
     {FUN_CALCULATORS.map((calc) => (
       <a
         href={calc.href}
-        class="group flex items-center gap-3 px-4 py-3 rounded-xl bg-white/5 border border-white/10 hover:border-secondary/40 hover:bg-secondary/5 transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary"
+        class="group flex items-center gap-3 px-4 py-3 rounded-xl bg-black/4 dark:bg-white/5 border border-black/10 dark:border-white/10 hover:border-secondary/40 hover:bg-secondary/5 transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary"
       >
         <span class="text-xl shrink-0" aria-hidden="true">{calc.icon}</span>
         <span class="text-sm font-medium text-foreground/80 group-hover:text-foreground transition-colors">{calc.label}</span>
