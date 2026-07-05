@@ -9,7 +9,7 @@ const seoSchema = {
   "@context": "https://schema.org",
   "@type": "WebApplication",
   "name": "Exact Age Calculator",
-  "url": "https://example.com/",
+  "url": "https://dateagecalculator.com/",
   "description": "Calculate your exact age in years, months, weeks, days, hours, minutes, and seconds.",
   "applicationCategory": "CalculatorApplication",
   "operatingSystem": "All",
@@ -19,43 +19,80 @@ const seoSchema = {
   }
 };
 
+const faqs = [
+  {
+    q: "What is the Date Age Calculator website?",
+    a: "Date Age Calculator is an online suite of highly precise time and age calculation tools designed to give you your exact age down to the millisecond, along with unique chronological insights."
+  },
+  {
+    q: "Are all the calculators on this website completely free to use?",
+    a: "Yes, every single tool on our platform, from the exact age calculator to the planetary and pet age calculators, is 100% free to use with no hidden paywalls or subscription fees."
+  },
+  {
+    q: "How accurate are the time and age calculations provided here?",
+    a: "Our custom algorithms handle complex calendar math, dynamically accounting for leap years, varying month lengths, and exact time zones to ensure flawless accuracy down to the second."
+  },
+  {
+    q: "Can I use these calculators on my mobile device or tablet?",
+    a: "Absolutely. Our website is built with a highly responsive, modern design, meaning it works perfectly and looks beautiful on any smartphone, tablet, or desktop web browser."
+  },
+  {
+    q: "Is my personal date of birth data stored or saved on your servers?",
+    a: "No, we strictly prioritize your digital privacy. All age calculations are performed instantly in your browser. We never store, save, or transmit your date of birth or personal data to any servers."
+  },
+  {
+    q: "Which types of calculators are available on this platform?",
+    a: "We offer over 15 unique tools, including precise date difference calculators, time zone converters, live birthday countdowns, zodiac finders, and even fun calculators to find your age on Mars or in dog years."
+  },
+  {
+    q: "Why should I choose this website over other age calculators?",
+    a: "We offer a stunning, ad-free interface with unmatched precision, real-time live age counters, and a massive variety of specialized chronological tools that you simply won't find anywhere else."
+  },
+  {
+    q: "Can I easily share my calculation results with friends or family?",
+    a: "Yes! Our fun chronological statistics and unique life insights, like exactly how many total seconds you've been alive, are perfect for sharing on social media or comparing with friends."
+  },
+  {
+    q: "Do these calculators work for international users across the globe?",
+    a: "Yes, our tools are universally applicable. Our Time Zone Converter and precise date algorithms support global time formats and timezone adjustments flawlessly for users anywhere in the world."
+  },
+  {
+    q: "Are the age and date calculations processed instantly?",
+    a: "Yes, our lightweight platform executes all calendar mathematics instantly the moment you select your dates, providing real-time, lightning-fast results without any annoying page reloads."
+  },
+  {
+    q: "How does the system handle complex leap year calculations?",
+    a: "Our backend algorithms automatically detect leap years (years divisible by 4, except century years not divisible by 400) and precisely add the crucial 29th of February to your total lifetime day count."
+  },
+  {
+    q: "Do I need to create an account or log in to use the tools?",
+    a: "No account creation or registration is required. You can instantly access all of our premium calculators and features the moment you land on our homepage, completely anonymously."
+  },
+  {
+    q: "Which web browsers are supported by this platform?",
+    a: "Our website is heavily optimized for all modern web browsers, including Google Chrome, Apple Safari, Mozilla Firefox, and Microsoft Edge, across all operating systems."
+  },
+  {
+    q: "How secure is the connection when I input my dates?",
+    a: "We force an encrypted HTTPS connection across the entire site, ensuring that your connection is secure and your browser interactions are completely private and protected."
+  },
+  {
+    q: "Will you be adding more calculators in the future?",
+    a: "Yes! We are constantly expanding our suite of tools. Check back frequently for exciting new additions like advanced payroll calculators and highly specialized astrological converters."
+  }
+];
+
 const faqSchema = {
   "@context": "https://schema.org",
   "@type": "FAQPage",
-  "mainEntity": [
-    {
-      "@type": "Question",
-      "name": "What is an Age Calculator?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "An Age Calculator is an online tool that helps you determine your exact age in years, months, and days from your date of birth to the current date or a specific target date."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "How do I calculate my exact age?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Simply enter your date of birth into the calculator above. The tool automatically computes the time elapsed from that date to today, accounting for leap years and varying month lengths, to give you your exact age."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "How does a leap year affect my age calculation?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Our algorithm precisely calculates the number of days in each month and year, including February 29th during leap years. This ensures that the total number of days lived is 100% accurate."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "Can I calculate my age at a future or past date?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Yes! By default, the calculator uses today's date. However, you can change the 'Target Date' field to any date in the past or future to find out how old you were, or will be, on that specific day."
-      }
+  "mainEntity": faqs.map(faq => ({
+    "@type": "Question",
+    "name": faq.q,
+    "acceptedAnswer": {
+      "@type": "Answer",
+      "text": faq.a
     }
-  ]
+  }))
 };
 ---
 
@@ -119,29 +156,16 @@ const faqSchema = {
     <div>
       <div class="text-center mb-10">
         <h2 class="text-3xl font-heading font-bold text-foreground">Frequently Asked Questions</h2>
-        <p class="text-foreground/60 mt-2">Everything you need to know about calculating your exact age.</p>
+        <p class="text-foreground/60 mt-2">Everything you need to know about our comprehensive suite of tools.</p>
       </div>
       
       <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-        <Card padding="md" class="bg-white/5 border-white/10 hover:bg-white/10 transition-colors shadow-lg">
-          <h4 class="font-semibold text-lg text-primary mb-2">What is an Age Calculator?</h4>
-          <p class="text-sm text-foreground/80 leading-relaxed">An Age Calculator is an online tool that helps you determine your exact age in years, months, and days from your date of birth to the current date or a specific target date.</p>
-        </Card>
-        
-        <Card padding="md" class="bg-white/5 border-white/10 hover:bg-white/10 transition-colors shadow-lg">
-          <h4 class="font-semibold text-lg text-primary mb-2">How do I calculate my exact age?</h4>
-          <p class="text-sm text-foreground/80 leading-relaxed">Simply enter your date of birth into the calculator above. The tool automatically computes the time elapsed from that date to today, accounting for leap years and varying month lengths.</p>
-        </Card>
-        
-        <Card padding="md" class="bg-white/5 border-white/10 hover:bg-white/10 transition-colors shadow-lg">
-          <h4 class="font-semibold text-lg text-primary mb-2">How does a leap year affect my age calculation?</h4>
-          <p class="text-sm text-foreground/80 leading-relaxed">Our algorithm precisely calculates the number of days in each month and year, including February 29th during leap years. This ensures that the total number of days lived is 100% accurate.</p>
-        </Card>
-        
-        <Card padding="md" class="bg-white/5 border-white/10 hover:bg-white/10 transition-colors shadow-lg">
-          <h4 class="font-semibold text-lg text-primary mb-2">Can I calculate my age at a future or past date?</h4>
-          <p class="text-sm text-foreground/80 leading-relaxed">Yes! By default, the calculator uses today's date. However, you can change the "Target Date" field to any date in the past or future to find out how old you were, or will be, on that specific day.</p>
-        </Card>
+        {faqs.map(faq => (
+          <Card padding="md" class="bg-white/5 border-white/10 hover:bg-white/10 transition-colors shadow-lg">
+            <h3 class="font-semibold text-lg text-primary mb-2">{faq.q}</h3>
+            <p class="text-sm text-foreground/80 leading-relaxed">{faq.a}</p>
+          </Card>
+        ))}
       </div>
     </div>
   </div>

@@ -11,3 +11,5 @@ export const AVG_HEARTBEATS_PER_MIN = 80;
 export const AVG_BREATHS_PER_MIN = 16;
 export const AVG_SLEEP_HOURS_PER_DAY = 8;
 export const AVG_MEALS_PER_DAY = 3;
+
+export const SITE_TITLE = "Date Age Calculator";

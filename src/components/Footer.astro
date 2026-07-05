@@ -1,11 +1,20 @@
 ---
 import { MAIN_CALCULATORS, FUN_CALCULATORS } from '../lib/calculators';
+import { SITE_TITLE } from '../lib/constants';
 
 const currentYear = new Date().getFullYear();
 
 const footerLinks = {
-  Calculators: MAIN_CALCULATORS.map(({ href, label }) => ({ href, label })),
-  Fun: FUN_CALCULATORS.slice(0, 5).map(({ href, label }) => ({ href, label })),
+  Calculators: [
+    { href: '/age-calculator', label: 'Age Calculator' },
+    { href: '/birthday-calculator', label: 'Birthday Calculator' },
+    { href: '/date-difference', label: 'Date Difference' },
+  ],
+  Fun: [
+    { href: '/dog-age-calculator', label: 'Dog Age' },
+    { href: '/cat-age-calculator', label: 'Cat Age' },
+    { href: '/western-zodiac', label: 'Zodiac Signs' },
+  ],
   Legal: [
     { href: '/privacy-policy', label: 'Privacy Policy' },
     { href: '/terms-and-conditions', label: 'Terms & Conditions' },
@@ -20,9 +29,9 @@ const footerLinks = {
       <div>
         <div class="flex items-center gap-2 mb-4">
           <div class="w-8 h-8 rounded-lg bg-gradient-to-br from-primary to-secondary flex items-center justify-center text-white font-bold text-xl">
-            A
+            {SITE_TITLE.charAt(0)}
           </div>
-          <span class="font-heading font-bold text-xl">Age Calculator</span>
+          <span class="font-heading font-bold text-xl">{SITE_TITLE}</span>
         </div>
         <p class="text-sm text-foreground/60 leading-relaxed">
           The most accurate, feature-rich age calculator and date difference tool on the web. Calculate your exact age down to the second.

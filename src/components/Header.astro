@@ -2,6 +2,7 @@
 import ThemeToggle from './ThemeToggle.astro';
 
 import { MAIN_CALCULATORS, FUN_CALCULATORS } from '../lib/calculators';
+import { SITE_TITLE } from '../lib/constants';
 
 // Primary nav = the three main calculators (single source of truth)
 const navLinks = MAIN_CALCULATORS;
@@ -13,21 +14,27 @@ const funLinks = FUN_CALCULATORS;
   <div class="container mx-auto px-4 h-16 flex items-center justify-between">
     <a href="/" class="flex items-center gap-3 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary rounded-lg transition-transform hover:scale-105 active:scale-95">
       <div class="w-8 h-8 rounded-lg bg-gradient-to-br from-primary to-secondary flex items-center justify-center text-white font-bold text-xl shadow-[0_0_15px_rgba(59,130,246,0.5)]">
-        A
+        {SITE_TITLE.charAt(0)}
       </div>
-      <span class="font-heading font-bold text-xl hidden sm:inline-block tracking-tight">Age Calculator</span>
+      <span class="font-heading font-bold text-xl hidden sm:inline-block tracking-tight">{SITE_TITLE}</span>
     </a>
     
     <!-- Desktop Navigation -->
     <nav class="hidden lg:flex items-center gap-6">
-      {navLinks.map((link) => (
-        <a 
-          href={link.href}
-          class="text-sm font-medium text-foreground/70 hover:text-foreground hover:drop-shadow-[0_0_8px_rgba(255,255,255,0.3)] transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary rounded-sm"
-        >
-          {link.label}
-        </a>
-      ))}
+      {navLinks.map((link) => {
+        const isActive = Astro.url.pathname.replace(/\/$/, '') === link.href.replace(/\/$/, '') || (Astro.url.pathname === '/' && link.href === '/age-calculator');
+        return (
+          <a 
+            href={link.href}
+            class:list={[
+              "text-sm font-medium transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary rounded-sm",
+              isActive ? "text-primary font-bold hover:drop-shadow-[0_0_8px_rgba(59,130,246,0.5)]" : "text-foreground/70 hover:text-foreground hover:drop-shadow-[0_0_8px_rgba(255,255,255,0.3)]"
+            ]}
+          >
+            {link.label}
+          </a>
+        );
+      })}
       <div class="h-4 w-px bg-white/20 mx-2"></div>
       <div class="relative group">
         <button class="text-sm font-medium text-foreground/70 group-hover:text-foreground transition-all flex items-center gap-1">
@@ -36,11 +43,20 @@ const funLinks = FUN_CALCULATORS;
         </button>
         <div class="absolute right-0 top-full mt-2 w-48 rounded-xl border border-white/10 bg-background/95 backdrop-blur-xl shadow-2xl opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 transform origin-top-right scale-95 group-hover:scale-100">
           <div class="p-2 flex flex-col">
-            {funLinks.map((link) => (
-              <a href={link.href} class="px-4 py-2 text-sm text-foreground/70 hover:text-foreground hover:bg-white/5 rounded-lg transition-colors">
-                {link.label}
-              </a>
-            ))}
+            {funLinks.map((link) => {
+              const isActive = Astro.url.pathname.replace(/\/$/, '') === link.href.replace(/\/$/, '');
+              return (
+                <a 
+                  href={link.href} 
+                  class:list={[
+                    "px-4 py-2 text-sm rounded-lg transition-colors",
+                    isActive ? "text-primary font-bold bg-white/5" : "text-foreground/70 hover:text-foreground hover:bg-white/5"
+                  ]}
+                >
+                  {link.label}
+                </a>
+              );
+            })}
           </div>
         </div>
       </div>
@@ -74,30 +90,42 @@ const funLinks = FUN_CALCULATORS;
     <div class="container mx-auto px-4 py-8 flex flex-col gap-6">
       <div class="flex flex-col gap-2">
         <h3 class="text-xs font-bold uppercase tracking-widest text-foreground/40 mb-2">Core Tools</h3>
-        {navLinks.map((link) => (
-          <a 
-            href={link.href}
-            class="text-lg font-medium text-foreground/80 hover:text-foreground hover:bg-white/5 px-4 py-3 rounded-xl transition-colors flex items-center gap-3"
-          >
-            <div class="w-2 h-2 rounded-full bg-primary"></div>
-            {link.label}
-          </a>
-        ))}
+        {navLinks.map((link) => {
+          const isActive = Astro.url.pathname.replace(/\/$/, '') === link.href.replace(/\/$/, '') || (Astro.url.pathname === '/' && link.href === '/age-calculator');
+          return (
+            <a 
+              href={link.href}
+              class:list={[
+                "text-lg font-medium px-4 py-3 rounded-xl transition-colors flex items-center gap-3",
+                isActive ? "text-primary bg-primary/10" : "text-foreground/80 hover:text-foreground hover:bg-white/5"
+              ]}
+            >
+              <div class:list={["w-2 h-2 rounded-full", isActive ? "bg-primary shadow-[0_0_8px_rgba(59,130,246,0.8)]" : "bg-primary/50"]}></div>
+              {link.label}
+            </a>
+          );
+        })}
       </div>
       
       <div class="h-px w-full bg-white/10"></div>
       
       <div class="flex flex-col gap-2">
         <h3 class="text-xs font-bold uppercase tracking-widest text-foreground/40 mb-2">Fun & Astrology</h3>
-        {funLinks.map((link) => (
-          <a 
-            href={link.href}
-            class="text-lg font-medium text-foreground/80 hover:text-foreground hover:bg-white/5 px-4 py-3 rounded-xl transition-colors flex items-center gap-3"
-          >
-            <div class="w-2 h-2 rounded-full bg-secondary"></div>
-            {link.label}
-          </a>
-        ))}
+        {funLinks.map((link) => {
+          const isActive = Astro.url.pathname.replace(/\/$/, '') === link.href.replace(/\/$/, '');
+          return (
+            <a 
+              href={link.href}
+              class:list={[
+                "text-lg font-medium px-4 py-3 rounded-xl transition-colors flex items-center gap-3",
+                isActive ? "text-secondary bg-secondary/10" : "text-foreground/80 hover:text-foreground hover:bg-white/5"
+              ]}
+            >
+              <div class:list={["w-2 h-2 rounded-full", isActive ? "bg-secondary shadow-[0_0_8px_rgba(139,92,246,0.8)]" : "bg-secondary/50"]}></div>
+              {link.label}
+            </a>
+          );
+        })}
       </div>
     </div>
   </div>
