@@ -2,14 +2,91 @@
 import Layout from '../layouts/Layout.astro';
 import Card from '../components/Card.astro';
 import Button from '../components/Button.astro';
+import FAQ from '../components/FAQ.astro';
 
 const seoSchema = {
   "@context": "https://schema.org",
   "@type": "WebApplication",
   "name": "Birthday Calculator",
-  "url": "https://example.com/birthday-calculator",
+  "url": "https://ageandtimecalculator.com/birthday-calculator",
   "description": "Calculate your next birthday, how many days are left, and what day of the week it falls on.",
   "applicationCategory": "CalculatorApplication"
+};
+
+const faqs = [
+  {
+    q: "What is a Birthday Calculator and how does it work?",
+    a: "A Birthday Calculator is a specialized digital utility designed to determine the precise chronological timeline of your life based on your date of birth. By entering your birth month, day, and year, the tool executes complex calendar mathematics to calculate your exact age, the specific day of the week you were born, the number of days remaining until your next birthday, and key milestones in your life journey. Our calculator handles details like leap years and varying month lengths automatically, providing a flawless countdown to your next celebration."
+  },
+  {
+    q: "How does the Birthday Calculator handle leap years in its countdown?",
+    a: "Leap years add an extra day (February 29) to the calendar every four years, which complicates date calculations. Our birthday calculator dynamically calculates whether the upcoming year or the current year contains a leap day. If your birth date falls on February 29 (a leap day), the calculator detects this rare event and accurately shows when your next birthday will occur, whether it is celebrated on February 28 or March 1 in non-leap years, ensuring your birthday countdown remains perfectly synchronized."
+  },
+  {
+    q: "Can this calculator tell me what day of the week I was born?",
+    a: "Yes! One of the primary features of our birthday calculator is identifying the exact day of the week of your birth date. This is determined using Zeller's Congruence or built-in JavaScript high-precision date objects, which trace the calendar back to the day you were born. Discovering whether you were born on a Monday, Friday, or Sunday adds a wonderful layer of personal historical context to your birthday profile, allowing you to learn more about the day your life journey began."
+  },
+  {
+    q: "What is a half-birthday, and does this tool calculate it?",
+    a: "A half-birthday occurs exactly six months after your actual birth date. While traditionally celebrated by children or individuals born near major holidays, half-birthdays have grown in popularity as fun milestones. Our calculator helps you determine the exact calendar date of your upcoming half-birthday. This is calculated by adding six calendar months to your birth date, automatically correcting for month lengths so you can schedule mid-year celebrations or reflection points."
+  },
+  {
+    q: "Why is the countdown to my next birthday different from other tools?",
+    a: "Our birthday countdown stands out due to its unmatched precision. Many generic online counters simply estimate days using a standard 30-day month template, which leads to calculation errors. Our system queries the exact day-by-day calendar structure, counting the exact number of days remaining, factoring in whether the intervening months have 28, 29, 30, or 31 days. This ensures that the days, hours, and seconds counted are 100% accurate."
+  },
+  {
+    q: "How does the tool calculate my upcoming age milestone?",
+    a: "The calculator determines your next age milestone by comparing your birth date against the current local date. It subtracts the years to find your current age, adds one year to determine your next turning age, and then tracks the precise interval between today and your next birthday. This gives you a clear target age (e.g., turning 25 or 40) along with a countdown of days, helping you plan ahead for major life events and milestone celebrations."
+  },
+  {
+    q: "Does this tool show me what my zodiac sign is?",
+    a: "Yes! In addition to standard day and milestone calculations, our birthday calculator identifies your Western astrological zodiac sign (such as Aries, Leo, or Capricorn) based on your birth month and day. It also connects you to our specialized Western and Chinese zodiac calculators where you can dive deeper into the personality traits, birth elements, and compatibility factors associated with your astrological profile."
+  },
+  {
+    q: "How can I calculate the exact day of the week my birthday falls on next year?",
+    a: "Our calculator automatically computes this for you! It looks at the current year and the upcoming year, shifts your birth month and day to the next occurrence, and queries the calendar grid to see what day of the week it falls on (e.g., a Saturday or a Tuesday). Knowing the weekday of your next birthday is incredibly helpful for planning parties, requesting days off work, or scheduling weekend getaways in advance."
+  },
+  {
+    q: "Is it possible to find out how many days I have been alive using this site?",
+    a: "Yes! While the Birthday Calculator focuses primarily on countdowns, milestones, and weekdays, you can use our primary Age Calculator on the homepage to see a comprehensive breakdown of your entire life. The Age Calculator shows you exactly how many total years, months, weeks, days, hours, minutes, and even seconds you have been alive on Earth, presenting your lifetime statistics in a beautiful, interactive card grid."
+  },
+  {
+    q: "Why do some cultures calculate birthdays differently?",
+    a: "Western cultures calculate age starting at zero and add a year on each birthday anniversary. However, some traditional East Asian age-reckoning systems (such as the traditional Korean or Chinese systems) consider a child to be one year old at birth and add a year on New Year's Day instead of the individual's actual birthday. Our calculator uses the widely accepted international standard of chronological age, counting exact elapsed calendar years."
+  },
+  {
+    q: "Can I use this calculator to plan a surprise birthday party for someone else?",
+    a: "Absolutely! Our birthday calculator is a fantastic party planning assistant. You can enter a friend's or family member's birth date to instantly see what day of the week their next birthday falls on, how many days are left, and what age they are turning. This helps you select the perfect weekend date for a surprise party, order customized milestone decorations, and send out invitations with perfect timing."
+  },
+  {
+    q: "Does the calculator store my birth date on any server?",
+    a: "No, your personal privacy is our absolute priority. All inputs, calculations, and date logic are processed locally in your web browser using JavaScript. We do not store, save, or transmit your birth date, age data, or any personally identifiable information to our servers. You can use all our tools with complete peace of mind, knowing your personal data remains private on your device."
+  },
+  {
+    q: "How is my birthstone determined by my birthday?",
+    a: "Your birthstone is determined by your calendar month of birth. This tradition dates back to ancient times and is linked to the breastplate of Aaron, which contained twelve unique gemstones. Today, standardized lists map specific gems to each month (like Amethyst for February and Sapphire for September). You can find your birthstone and its historical meanings using our dedicated Birthstone Finder on this site."
+  },
+  {
+    q: "Does this calculator work on my phone?",
+    a: "Yes! We designed the entire website, including the Birthday Calculator, to be fully responsive. It features a modern, fluid grid that automatically scales and aligns perfectly on all viewports, including mobile phones, tablets, and large desktop screens. Whether you are checking on your phone on the go or planning on a desktop at home, the interface is fast, premium, and easy to use."
+  },
+  {
+    q: "What should I do if my countdown seems to be off by one day?",
+    a: "If the countdown appears off by one day, it is usually due to a timezone mismatch between your device's system clock and the target date timezone. Ensure that your phone or computer's system time, date, and timezone settings are correct. Our calculator queries your local browser time to perform calculations, so an accurate system clock guarantees an accurate countdown down to the exact second."
+  }
+];
+
+const faqSchema = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": faqs.map((faq) => ({
+    "@type": "Question",
+    "name": faq.q,
+    "acceptedAnswer": {
+      "@type": "Answer",
+      "text": faq.a
+    }
+  }))
 };
 ---
 
@@ -59,9 +136,13 @@ const seoSchema = {
       </div>
     </div>
 
-    <!-- SEO Content Block -->
+    <!-- FAQ Section -->
+    <FAQ items={faqs} description="Uncover the most common questions about birthday countdowns, leap years, weekdays, and milestones." />
     
   </div>
+
+  <!-- FAQ JSON-LD Schema -->
+  <script type="application/ld+json" set:html={JSON.stringify(faqSchema)} />
 </Layout>
 
 <script>
