@@ -1,0 +1,135 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Card from '../components/Card.astro';
+import Button from '../components/Button.astro';
+
+export function getStaticPaths() {
+  return [
+    { params: { unit: 'days' } },
+    { params: { unit: 'weeks' } },
+    { params: { unit: 'months' } },
+    { params: { unit: 'hours' } },
+    { params: { unit: 'minutes' } },
+    { params: { unit: 'seconds' } }
+  ];
+}
+
+const { unit } = Astro.params;
+
+const titleMap: Record<string, string> = {
+  days: 'Age in Days',
+  weeks: 'Age in Weeks',
+  months: 'Age in Months',
+  hours: 'Age in Hours',
+  minutes: 'Age in Minutes',
+  seconds: 'Age in Seconds'
+};
+
+const displayTitle = titleMap[unit as string] || 'Age Conversion';
+
+const seoSchema = {
+  "@context": "https://schema.org",
+  "@type": "WebApplication",
+  "name": `${displayTitle} Calculator`,
+  "url": `https://example.com/age-in-${unit}`,
+  "description": `Calculate your exact ${displayTitle.toLowerCase()} from your date of birth.`,
+  "applicationCategory": "CalculatorApplication"
+};
+---
+
+<Layout title={`${displayTitle} Calculator | Exact Calculation`} description={`Calculate your exact ${displayTitle.toLowerCase()}. Enter your birth date to find out exactly how many ${unit} you have been alive.`} schema={seoSchema}>
+  
+  <div class="container mx-auto px-4 py-16 max-w-4xl">
+    <div class="text-center mb-12">
+      <h1 class="text-4xl md:text-5xl font-heading font-bold mb-4 tracking-tight">
+        {displayTitle} <span class="text-transparent bg-clip-text bg-gradient-to-r from-primary to-secondary">Calculator</span>
+      </h1>
+      <p class="text-lg text-foreground/80 max-w-2xl mx-auto">
+        Find out exactly how many {unit} you have been alive since your date of birth.
+      </p>
+    </div>
+
+    <Card padding="lg" class="max-w-xl mx-auto shadow-2xl border-white/20 relative overflow-hidden mb-16">
+      <form id={`calc-form-${unit}`} class="space-y-6 relative z-10" data-unit={unit}>
+        <div class="space-y-2">
+          <label for="dob" class="block text-sm font-medium text-foreground/80">Date of Birth</label>
+          <input 
+            type="date" 
+            id="dob" 
+            required 
+            class="w-full h-11 px-4 rounded-xl bg-white/5 border border-white/10 text-foreground focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition-colors"
+          />
+        </div>
+        <Button type="submit" size="lg" class="w-full">Calculate {displayTitle}</Button>
+      </form>
+    </Card>
+
+    <div id="unit-results" class="hidden animate-in fade-in slide-in-from-bottom-4 duration-700">
+      <Card padding="lg" class="text-center bg-primary/10 border-primary/20">
+        <h2 class="text-xl font-medium text-foreground/80 mb-2">You have lived a total of</h2>
+        <div class="flex flex-wrap justify-center items-baseline gap-2 font-mono font-bold">
+          <span id="result-value" class="text-5xl md:text-7xl text-primary tabular-nums">0</span>
+          <span class="text-xl md:text-2xl text-foreground/60 capitalize">{unit}</span>
+        </div>
+      </Card>
+    </div>
+
+    <article class="prose prose-invert prose-lg max-w-none mt-20 prose-headings:font-heading prose-a:text-primary">
+      <h2>How to Calculate Your {displayTitle}</h2>
+      <p>
+        Understanding your age in just years is standard, but discovering your exact age in <strong>{unit}</strong> provides a fascinating new perspective on your life's journey. 
+      </p>
+      <p>
+        Our highly accurate {displayTitle.toLowerCase()} calculator instantly computes the total time elapsed between your date of birth and today. It strictly accounts for leap years, variations in month lengths, and the specific mechanics of the Gregorian calendar to ensure your result is mathematically flawless.
+      </p>
+      <h3>Why calculate your age in {unit}?</h3>
+      <ul>
+        <li><strong>Fun Milestones:</strong> Celebrate reaching 10,000 days or 1,000,000 hours old instead of waiting for a yearly birthday!</li>
+        <li><strong>Precision:</strong> Get a microscopic view of time passed.</li>
+        <li><strong>Perspective:</strong> Realizing how many {unit} have gone by can be a powerful motivator to make the most out of every single one.</li>
+      </ul>
+    </article>
+  </div>
+</Layout>
+
+<script>
+  import { calculateAgeBreakdown } from '../lib/age';
+
+  // We find the specific form for this page to extract the unit
+  const form = document.querySelector('form[data-unit]') as HTMLFormElement;
+  
+  if (form) {
+    const unit = form.dataset.unit;
+    const dobInput = document.getElementById('dob') as HTMLInputElement;
+
+    form.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const dob = new Date(dobInput.value);
+      
+      if (isNaN(dob.getTime())) {
+        alert("Please enter a valid date.");
+        return;
+      }
+
+      const breakdown = calculateAgeBreakdown(dob);
+      
+      let resultValue = 0;
+      switch(unit) {
+        case 'days': resultValue = breakdown.totalDays; break;
+        case 'weeks': resultValue = breakdown.totalWeeks; break;
+        case 'months': resultValue = breakdown.totalMonths; break;
+        case 'hours': resultValue = breakdown.totalHours; break;
+        case 'minutes': resultValue = breakdown.totalMinutes; break;
+        case 'seconds': resultValue = breakdown.totalSeconds; break;
+      }
+
+      document.getElementById('unit-results')?.classList.remove('hidden');
+      
+      const resultEl = document.getElementById('result-value');
+      if (resultEl) {
+        // Simple fast update
+        resultEl.textContent = resultValue.toLocaleString();
+      }
+    });
+  }
+</script>

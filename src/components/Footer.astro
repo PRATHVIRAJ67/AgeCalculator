@@ -1,0 +1,63 @@
+---
+const currentYear = new Date().getFullYear();
+
+const footerLinks = {
+  Calculators: [
+    { href: '/age-calculator', label: 'Age Calculator' },
+    { href: '/birthday-calculator', label: 'Birthday Calculator' },
+    { href: '/date-difference', label: 'Date Difference' },
+  ],
+  Fun: [
+    { href: '/dog-age-calculator', label: 'Dog Age' },
+    { href: '/cat-age-calculator', label: 'Cat Age' },
+    { href: '/western-zodiac', label: 'Zodiac Signs' },
+  ],
+  Legal: [
+    { href: '/privacy-policy', label: 'Privacy Policy' },
+    { href: '/terms-and-conditions', label: 'Terms & Conditions' },
+    { href: '/disclaimer', label: 'Disclaimer' },
+  ]
+};
+---
+
+<footer class="mt-auto border-t border-white/10 bg-background/50">
+  <div class="container mx-auto px-4 py-12">
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-12">
+      <div>
+        <div class="flex items-center gap-2 mb-4">
+          <div class="w-8 h-8 rounded-lg bg-gradient-to-br from-primary to-secondary flex items-center justify-center text-white font-bold text-xl">
+            A
+          </div>
+          <span class="font-heading font-bold text-xl">Age Calculator</span>
+        </div>
+        <p class="text-sm text-foreground/60 leading-relaxed">
+          The most accurate, feature-rich age calculator and date difference tool on the web. Calculate your exact age down to the second.
+        </p>
+      </div>
+
+      {Object.entries(footerLinks).map(([category, links]) => (
+        <div>
+          <h3 class="font-heading font-semibold mb-4 text-foreground/90">{category}</h3>
+          <ul class="space-y-3">
+            {links.map((link) => (
+              <li>
+                <a 
+                  href={link.href} 
+                  class="text-sm text-foreground/60 hover:text-primary transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary rounded-sm"
+                >
+                  {link.label}
+                </a>
+              </li>
+            ))}
+          </ul>
+        </div>
+      ))}
+    </div>
+
+    <div class="pt-8 border-t border-white/10 flex flex-col md:flex-row items-center justify-between gap-4">
+      <p class="text-sm text-foreground/50">
+        &copy; {currentYear} Age Calculator. All rights reserved.
+      </p>
+    </div>
+  </div>
+</footer>

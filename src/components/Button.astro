@@ -1,0 +1,48 @@
+---
+interface Props {
+  href?: string;
+  type?: 'button' | 'submit' | 'reset';
+  variant?: 'primary' | 'secondary' | 'outline' | 'ghost';
+  size?: 'sm' | 'md' | 'lg';
+  class?: string;
+  id?: string;
+  disabled?: boolean;
+}
+
+const { 
+  href, 
+  type = 'button', 
+  variant = 'primary', 
+  size = 'md', 
+  class: className = '',
+  id,
+  disabled = false
+} = Astro.props;
+
+const baseStyles = 'inline-flex items-center justify-center rounded-xl font-medium transition-all duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary disabled:pointer-events-none disabled:opacity-50 active:scale-95';
+
+const variants = {
+  primary: 'bg-primary text-primary-foreground hover:bg-primary/90 shadow-[0_0_15px_rgba(59,130,246,0.3)] hover:shadow-[0_0_25px_rgba(59,130,246,0.5)]',
+  secondary: 'bg-secondary text-secondary-foreground hover:bg-secondary/80 shadow-lg',
+  outline: 'border-2 border-primary text-primary hover:bg-primary hover:text-white',
+  ghost: 'hover:bg-white/10 text-foreground',
+};
+
+const sizes = {
+  sm: "h-9 px-4 text-sm",
+  md: "h-11 px-6 text-base",
+  lg: "h-14 px-8 text-lg"
+};
+
+const classes = `${baseStyles} ${variants[variant]} ${sizes[size]} ${className}`;
+---
+
+{href ? (
+  <a href={href} class={classes} id={id} aria-disabled={disabled}>
+    <slot />
+  </a>
+) : (
+  <button type={type} class={classes} id={id} disabled={disabled}>
+    <slot />
+  </button>
+)}

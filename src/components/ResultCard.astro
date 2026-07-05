@@ -1,0 +1,112 @@
+---
+import Card from './Card.astro';
+---
+
+<div id="results-container" class="hidden space-y-8 mt-12 animate-in fade-in slide-in-from-bottom-4 duration-700">
+  <!-- Exact Age Result -->
+  <Card padding="lg" class="text-center bg-primary/10 border-primary/20">
+    <h2 class="text-xl font-medium text-foreground/80 mb-2">Your Exact Age is</h2>
+    <div class="flex flex-wrap justify-center items-baseline gap-2 md:gap-4 font-mono font-bold">
+      <div class="flex items-baseline gap-1">
+        <span id="res-years" class="text-5xl md:text-7xl text-primary tabular-nums">0</span>
+        <span class="text-lg md:text-xl text-foreground/60">Years</span>
+      </div>
+      <div class="flex items-baseline gap-1">
+        <span id="res-months" class="text-5xl md:text-7xl text-secondary tabular-nums">0</span>
+        <span class="text-lg md:text-xl text-foreground/60">Months</span>
+      </div>
+      <div class="flex items-baseline gap-1">
+        <span id="res-days" class="text-5xl md:text-7xl text-accent tabular-nums">0</span>
+        <span class="text-lg md:text-xl text-foreground/60">Days</span>
+      </div>
+    </div>
+  </Card>
+
+  <!-- Detailed Breakdown Grid -->
+  <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
+    <Card padding="sm" class="text-center">
+      <div class="text-sm text-foreground/60 mb-1">Total Months</div>
+      <div id="res-total-months" class="text-xl font-mono font-semibold tabular-nums">0</div>
+    </Card>
+    <Card padding="sm" class="text-center">
+      <div class="text-sm text-foreground/60 mb-1">Total Weeks</div>
+      <div id="res-total-weeks" class="text-xl font-mono font-semibold tabular-nums">0</div>
+    </Card>
+    <Card padding="sm" class="text-center">
+      <div class="text-sm text-foreground/60 mb-1">Total Days</div>
+      <div id="res-total-days" class="text-xl font-mono font-semibold tabular-nums">0</div>
+    </Card>
+    <Card padding="sm" class="text-center">
+      <div class="text-sm text-foreground/60 mb-1">Total Hours</div>
+      <div id="res-total-hours" class="text-xl font-mono font-semibold tabular-nums">0</div>
+    </Card>
+    <Card padding="sm" class="text-center">
+      <div class="text-sm text-foreground/60 mb-1">Total Minutes</div>
+      <div id="res-total-minutes" class="text-xl font-mono font-semibold tabular-nums">0</div>
+    </Card>
+    <Card padding="sm" class="text-center">
+      <div class="text-sm text-foreground/60 mb-1">Total Seconds</div>
+      <div id="res-total-seconds" class="text-xl font-mono font-semibold tabular-nums">0</div>
+    </Card>
+  </div>
+</div>
+
+<script>
+  // Simple number animator function
+  function animateValue(obj: HTMLElement, start: number, end: number, duration: number) {
+    let startTimestamp: number | null = null;
+    const step = (timestamp: number) => {
+      if (!startTimestamp) startTimestamp = timestamp;
+      const progress = Math.min((timestamp - startTimestamp) / duration, 1);
+      // ease out quad
+      const easeProgress = progress * (2 - progress);
+      const current = Math.floor(easeProgress * (end - start) + start);
+      obj.innerHTML = current.toLocaleString();
+      if (progress < 1) {
+        window.requestAnimationFrame(step);
+      } else {
+        obj.innerHTML = end.toLocaleString();
+      }
+    };
+    window.requestAnimationFrame(step);
+  }
+
+  // Listen for the ageCalculated event from the form
+  document.addEventListener('ageCalculated', ((e: CustomEvent) => {
+    const { exactAge, breakdown } = e.detail;
+    const container = document.getElementById('results-container');
+    
+    if (container) {
+      container.classList.remove('hidden');
+    }
+
+    const duration = 1000; // 1 second animation
+
+    const fields = [
+      { id: 'res-years', val: exactAge.years },
+      { id: 'res-months', val: exactAge.months },
+      { id: 'res-days', val: exactAge.days },
+      { id: 'res-total-months', val: breakdown.totalMonths },
+      { id: 'res-total-weeks', val: breakdown.totalWeeks },
+      { id: 'res-total-days', val: breakdown.totalDays },
+      { id: 'res-total-hours', val: breakdown.totalHours },
+      { id: 'res-total-minutes', val: breakdown.totalMinutes },
+      { id: 'res-total-seconds', val: breakdown.totalSeconds },
+    ];
+
+    fields.forEach(field => {
+      const el = document.getElementById(field.id);
+      if (el) {
+        // Parse current value if it exists, otherwise start from 0
+        const currentVal = parseInt(el.innerHTML.replace(/,/g, '')) || 0;
+        // Only animate if preferring motion
+        if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+          el.innerHTML = field.val.toLocaleString();
+        } else {
+          animateValue(el, currentVal, field.val, duration);
+        }
+      }
+    });
+
+  }) as EventListener);
+</script>

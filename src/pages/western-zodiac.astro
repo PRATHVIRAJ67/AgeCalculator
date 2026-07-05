@@ -1,0 +1,103 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Card from '../components/Card.astro';
+import Button from '../components/Button.astro';
+
+const seoSchema = {
+  "@context": "https://schema.org",
+  "@type": "WebApplication",
+  "name": "Western Zodiac Sign Calculator",
+  "url": "https://example.com/western-zodiac",
+  "description": "Find your true Western Astrological Zodiac sign, element, and symbol based on your exact birth date.",
+  "applicationCategory": "CalculatorApplication"
+};
+---
+
+<Layout title="Western Zodiac Calculator | Find Your Astrological Sign" description="Calculate your Western Zodiac sign. Enter your birthday to instantly discover your star sign, symbol, and astrological element (Fire, Earth, Air, Water)." schema={seoSchema}>
+  
+  <div class="container mx-auto px-4 py-16 max-w-4xl">
+    <div class="text-center mb-12">
+      <h1 class="text-4xl md:text-5xl font-heading font-bold mb-4 tracking-tight">
+        Zodiac Sign <span class="text-transparent bg-clip-text bg-gradient-to-r from-primary to-secondary">Calculator</span>
+      </h1>
+      <p class="text-lg text-foreground/80 max-w-2xl mx-auto">
+        Discover your true Western Astrological star sign, element, and symbol.
+      </p>
+    </div>
+
+    <Card padding="lg" class="max-w-xl mx-auto shadow-2xl border-white/20 relative overflow-hidden mb-16">
+      <form id="zodiac-form" class="space-y-6 relative z-10">
+        <div class="space-y-2">
+          <label for="dob" class="block text-sm font-medium text-foreground/80">Date of Birth</label>
+          <input 
+            type="date" 
+            id="dob" 
+            required 
+            class="w-full h-11 px-4 rounded-xl bg-white/5 border border-white/10 text-foreground focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition-colors"
+          />
+        </div>
+        <Button type="submit" size="lg" class="w-full">Reveal My Zodiac Sign</Button>
+      </form>
+    </Card>
+
+    <div id="zodiac-results" class="hidden animate-in fade-in slide-in-from-bottom-4 duration-700">
+      <Card padding="lg" class="text-center bg-gradient-to-b from-primary/20 to-secondary/20 border-white/20 max-w-xl mx-auto">
+        <div id="z-symbol" class="text-7xl md:text-8xl mb-4 drop-shadow-lg">✨</div>
+        <h2 class="text-sm font-semibold uppercase tracking-wider text-foreground/60 mb-1">Your Star Sign Is</h2>
+        <div id="z-sign" class="text-4xl md:text-6xl font-heading font-bold text-transparent bg-clip-text bg-gradient-to-r from-primary to-secondary mb-4">Astrology</div>
+        
+        <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/10 border border-white/20">
+          <span class="text-sm font-medium text-foreground/80">Element:</span>
+          <span id="z-element" class="text-sm font-bold text-foreground">Cosmos</span>
+        </div>
+      </Card>
+    </div>
+
+    <article class="prose prose-invert prose-lg max-w-none mt-20 prose-headings:font-heading prose-a:text-primary">
+      <h2>Understanding Western Astrology</h2>
+      <p>
+        Western astrology is founded on the concept of the zodiac, a belt of the heavens divided into 12 signs. Your specific star sign (or Sun sign) is determined by exactly where the sun was positioned in the sky on the day you were born.
+      </p>
+      <h3>The 12 Zodiac Signs & Elements</h3>
+      <ul>
+        <li><strong>Fire Signs (Aries, Leo, Sagittarius):</strong> Passionate, dynamic, and temperamental.</li>
+        <li><strong>Earth Signs (Taurus, Virgo, Capricorn):</strong> Grounded, loyal, and practical.</li>
+        <li><strong>Air Signs (Gemini, Libra, Aquarius):</strong> Intellectual, communicative, and analytical.</li>
+        <li><strong>Water Signs (Cancer, Scorpio, Pisces):</strong> Intuitive, emotional, and ultra-sensitive.</li>
+      </ul>
+      <p>
+        Unlike calculating your exact age in seconds, calculating your Zodiac sign only requires the Month and Day of your birth. The year is not a factor in Western Sun Sign astrology.
+      </p>
+    </article>
+  </div>
+</Layout>
+
+<script>
+  import { getWesternZodiac } from '../lib/funCalculators';
+
+  const form = document.getElementById('zodiac-form');
+  const dobInput = document.getElementById('dob') as HTMLInputElement;
+
+  form?.addEventListener('submit', (e) => {
+    e.preventDefault();
+    const dob = new Date(dobInput.value);
+    
+    if (isNaN(dob.getTime())) {
+      alert("Please enter a valid date.");
+      return;
+    }
+
+    // month is 0-indexed in JS
+    const result = getWesternZodiac(dob.getMonth(), dob.getDate());
+    
+    document.getElementById('zodiac-results')?.classList.remove('hidden');
+    
+    const signEl = document.getElementById('z-sign');
+    const symbolEl = document.getElementById('z-symbol');
+    const elementEl = document.getElementById('z-element');
+
+    if (signEl) signEl.textContent = result.sign;
+    if (symbolEl) symbolEl.textContent = result.symbol;
+    if (elementEl) elementEl.textContent = result.element;
+  });
+</script>

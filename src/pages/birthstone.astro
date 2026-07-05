@@ -1,0 +1,89 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Card from '../components/Card.astro';
+import Button from '../components/Button.astro';
+
+const seoSchema = {
+  "@context": "https://schema.org",
+  "@type": "WebApplication",
+  "name": "Birthstone and Birth Flower Calculator",
+  "url": "https://example.com/birthstone",
+  "description": "Find your official birthstone and birth flower based on the month you were born.",
+  "applicationCategory": "CalculatorApplication"
+};
+---
+
+<Layout title="Birthstone & Birth Flower Calculator | Find Yours" description="Find your official birthstone and birth flower. Simply select your birth month to discover the gemstone and flower associated with your birth." schema={seoSchema}>
+  
+  <div class="container mx-auto px-4 py-16 max-w-4xl">
+    <div class="text-center mb-12">
+      <h1 class="text-4xl md:text-5xl font-heading font-bold mb-4 tracking-tight">
+        Birthstone & Flower <span class="text-transparent bg-clip-text bg-gradient-to-r from-primary to-secondary">Finder</span>
+      </h1>
+      <p class="text-lg text-foreground/80 max-w-2xl mx-auto">
+        Discover the precious gemstone and beautiful flower associated with your birth month.
+      </p>
+    </div>
+
+    <Card padding="lg" class="max-w-xl mx-auto shadow-2xl border-white/20 relative overflow-hidden mb-16">
+      <form id="stone-form" class="space-y-6 relative z-10">
+        <div class="space-y-2">
+          <label for="month" class="block text-sm font-medium text-foreground/80">Birth Month</label>
+          <select id="month" required class="w-full h-11 px-4 rounded-xl bg-white/10 border border-white/20 text-foreground focus:outline-none focus:ring-2 focus:ring-primary">
+            <option value="0" class="text-black">January</option>
+            <option value="1" class="text-black">February</option>
+            <option value="2" class="text-black">March</option>
+            <option value="3" class="text-black">April</option>
+            <option value="4" class="text-black">May</option>
+            <option value="5" class="text-black">June</option>
+            <option value="6" class="text-black">July</option>
+            <option value="7" class="text-black">August</option>
+            <option value="8" class="text-black">September</option>
+            <option value="9" class="text-black">October</option>
+            <option value="10" class="text-black">November</option>
+            <option value="11" class="text-black">December</option>
+          </select>
+        </div>
+        <Button type="submit" size="lg" class="w-full">Reveal My Birthstone</Button>
+      </form>
+    </Card>
+
+    <div id="stone-results" class="hidden animate-in fade-in slide-in-from-bottom-4 duration-700">
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <Card padding="lg" class="text-center bg-gradient-to-b from-emerald-900/40 to-black border-emerald-500/30">
+          <h2 class="text-sm font-semibold uppercase tracking-wider text-emerald-200/80 mb-4">Your Birthstone</h2>
+          <div id="res-stone" class="text-4xl md:text-5xl font-heading font-bold text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 to-teal-200">Emerald</div>
+        </Card>
+        
+        <Card padding="lg" class="text-center bg-gradient-to-b from-pink-900/40 to-black border-pink-500/30">
+          <h2 class="text-sm font-semibold uppercase tracking-wider text-pink-200/80 mb-4">Your Birth Flower</h2>
+          <div id="res-flower" class="text-4xl md:text-5xl font-heading font-bold text-transparent bg-clip-text bg-gradient-to-r from-pink-400 to-rose-200">Lily</div>
+        </Card>
+      </div>
+    </div>
+  </div>
+</Layout>
+
+<script>
+  import { getBirthstone } from '../lib/funCalculators';
+
+  const form = document.getElementById('stone-form');
+  const monthInput = document.getElementById('month') as HTMLSelectElement;
+
+  form?.addEventListener('submit', (e) => {
+    e.preventDefault();
+    const monthIndex = parseInt(monthInput.value);
+    
+    if (isNaN(monthIndex)) return;
+
+    const result = getBirthstone(monthIndex);
+    
+    document.getElementById('stone-results')?.classList.remove('hidden');
+    
+    const stoneEl = document.getElementById('res-stone');
+    const flowerEl = document.getElementById('res-flower');
+
+    if (stoneEl) stoneEl.textContent = result.stone;
+    if (flowerEl) flowerEl.textContent = result.flower;
+  });
+</script>

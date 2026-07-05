@@ -1,0 +1,75 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Card from '../components/Card.astro';
+import Button from '../components/Button.astro';
+
+const seoSchema = {
+  "@context": "https://schema.org",
+  "@type": "WebApplication",
+  "name": "Dog Age Calculator",
+  "url": "https://example.com/dog-age-calculator",
+  "description": "Calculate your dog's age in human years accurately.",
+  "applicationCategory": "CalculatorApplication"
+};
+---
+
+<Layout title="Dog Age Calculator | Human Years to Dog Years" description="Convert human years to dog years accurately. Find out exactly how old your furry friend really is in human terms." schema={seoSchema}>
+  
+  <div class="container mx-auto px-4 py-16 max-w-4xl">
+    <div class="text-center mb-12">
+      <h1 class="text-4xl md:text-5xl font-heading font-bold mb-4 tracking-tight">
+        Dog Age <span class="text-transparent bg-clip-text bg-gradient-to-r from-primary to-secondary">Calculator</span>
+      </h1>
+      <p class="text-lg text-foreground/80 max-w-2xl mx-auto">
+        Convert your dog's calendar age into actual human years.
+      </p>
+    </div>
+
+    <Card padding="lg" class="max-w-xl mx-auto shadow-2xl border-white/20 relative overflow-hidden mb-16">
+      <form id="dog-form" class="space-y-6 relative z-10">
+        <div class="space-y-2">
+          <label for="years" class="block text-sm font-medium text-foreground/80">Dog's Calendar Age (Years)</label>
+          <input 
+            type="number" 
+            id="years" 
+            min="1"
+            max="30"
+            required 
+            class="w-full h-11 px-4 rounded-xl bg-white/5 border border-white/10 text-foreground focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition-colors"
+          />
+        </div>
+        <Button type="submit" size="lg" class="w-full">Calculate Dog Age</Button>
+      </form>
+    </Card>
+
+    <div id="dog-results" class="hidden animate-in fade-in slide-in-from-bottom-4 duration-700">
+      <Card padding="lg" class="text-center bg-gradient-to-b from-orange-900/40 to-black border-orange-500/30 max-w-xl mx-auto">
+        <h2 class="text-sm font-semibold uppercase tracking-wider text-orange-200/80 mb-1">Your Dog is Equivalent to</h2>
+        <div class="flex items-baseline justify-center gap-2 mt-4">
+          <div id="res-age" class="text-6xl md:text-8xl font-heading font-bold text-transparent bg-clip-text bg-gradient-to-r from-orange-400 to-yellow-500 tabular-nums">0</div>
+          <span class="text-2xl text-orange-300">Human Years</span>
+        </div>
+      </Card>
+    </div>
+  </div>
+</Layout>
+
+<script>
+  import { calculatePetAge } from '../lib/funCalculators';
+
+  const form = document.getElementById('dog-form');
+  const yearInput = document.getElementById('years') as HTMLInputElement;
+
+  form?.addEventListener('submit', (e) => {
+    e.preventDefault();
+    const years = parseInt(yearInput.value);
+    
+    if (isNaN(years)) return;
+
+    const result = calculatePetAge(years, 'dog');
+    
+    document.getElementById('dog-results')?.classList.remove('hidden');
+    const ageEl = document.getElementById('res-age');
+    if (ageEl) ageEl.textContent = result.toString();
+  });
+</script>

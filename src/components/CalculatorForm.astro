@@ -1,0 +1,75 @@
+---
+import Button from './Button.astro';
+---
+
+<form id="age-calculator-form" class="space-y-6">
+  <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+    <div class="space-y-2">
+      <label for="dob" class="block text-sm font-medium text-foreground/80">Date of Birth</label>
+      <input 
+        type="date" 
+        id="dob" 
+        name="dob" 
+        required 
+        class="w-full h-11 px-4 rounded-xl bg-white/5 border border-white/10 text-foreground focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition-colors"
+      />
+    </div>
+    
+    <div class="space-y-2">
+      <label for="targetDate" class="block text-sm font-medium text-foreground/80">Calculate age at this date</label>
+      <input 
+        type="date" 
+        id="targetDate" 
+        name="targetDate" 
+        class="w-full h-11 px-4 rounded-xl bg-white/5 border border-white/10 text-foreground focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition-colors"
+      />
+    </div>
+  </div>
+
+  <Button type="submit" size="lg" class="w-full sm:w-auto">
+    Calculate Age
+  </Button>
+</form>
+
+<script>
+  import { calculateExactAge, calculateAgeBreakdown, calculateNextBirthday } from '../lib/age';
+
+  const form = document.getElementById('age-calculator-form') as HTMLFormElement;
+  const dobInput = document.getElementById('dob') as HTMLInputElement;
+  const targetDateInput = document.getElementById('targetDate') as HTMLInputElement;
+
+  // Set default target date to today
+  const today = new Date();
+  const yyyy = today.getFullYear();
+  const mm = String(today.getMonth() + 1).padStart(2, '0');
+  const dd = String(today.getDate()).padStart(2, '0');
+  targetDateInput.value = `${yyyy}-${mm}-${dd}`;
+
+  form?.addEventListener('submit', (e) => {
+    e.preventDefault();
+    
+    const dob = new Date(dobInput.value);
+    const target = new Date(targetDateInput.value);
+
+    // Basic validation
+    if (isNaN(dob.getTime()) || isNaN(target.getTime())) {
+      alert("Please enter valid dates.");
+      return;
+    }
+
+    if (dob > target) {
+      alert("Date of birth cannot be after the target date.");
+      return;
+    }
+
+    const exactAge = calculateExactAge(dob, target);
+    const breakdown = calculateAgeBreakdown(dob, target);
+    const nextBirthday = calculateNextBirthday(dob, target);
+    
+    // Dispatch custom event with results so other components can listen and update
+    const event = new CustomEvent('ageCalculated', {
+      detail: { exactAge, breakdown, nextBirthday }
+    });
+    document.dispatchEvent(event);
+  });
+</script>

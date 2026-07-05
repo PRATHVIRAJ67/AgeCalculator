@@ -1,0 +1,28 @@
+---
+interface Props {
+  class?: string;
+  padding?: 'none' | 'sm' | 'md' | 'lg';
+  as?: string;
+}
+
+const { 
+  class: className = '', 
+  padding = 'md',
+  as: Tag = 'div' 
+} = Astro.props;
+
+const paddings = {
+  none: '',
+  sm: 'p-4',
+  md: 'p-6',
+  lg: 'p-8'
+};
+---
+
+<Tag class:list={[
+  "bg-background/60 backdrop-blur-xl border border-white/10 rounded-2xl shadow-xl hover:shadow-[0_8px_30px_rgba(0,0,0,0.12)] hover:border-white/20 transition-all duration-300",
+  paddings[padding],
+  className
+]}>
+  <slot />
+</Tag>

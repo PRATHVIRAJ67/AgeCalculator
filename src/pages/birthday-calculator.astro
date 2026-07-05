@@ -1,0 +1,123 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Card from '../components/Card.astro';
+import Button from '../components/Button.astro';
+
+const seoSchema = {
+  "@context": "https://schema.org",
+  "@type": "WebApplication",
+  "name": "Birthday Calculator",
+  "url": "https://example.com/birthday-calculator",
+  "description": "Calculate your next birthday, how many days are left, and what day of the week it falls on.",
+  "applicationCategory": "CalculatorApplication"
+};
+---
+
+<Layout title="Birthday Calculator | Days Until Your Next Birthday" description="Find out exactly how many days are left until your next birthday. Discover what day of the week you were born and your upcoming birthday milestones." schema={seoSchema}>
+  
+  <div class="container mx-auto px-4 py-16 max-w-4xl">
+    <div class="text-center mb-12">
+      <h1 class="text-4xl md:text-5xl font-heading font-bold mb-4 tracking-tight">
+        Birthday <span class="text-transparent bg-clip-text bg-gradient-to-r from-primary to-secondary">Calculator</span>
+      </h1>
+      <p class="text-lg text-foreground/80 max-w-2xl mx-auto">
+        Count down the days to your next celebration and uncover fun facts about your birth date.
+      </p>
+    </div>
+
+    <Card padding="lg" class="max-w-xl mx-auto shadow-2xl border-white/20 relative overflow-hidden mb-16">
+      <form id="birthday-form" class="space-y-6 relative z-10">
+        <div class="space-y-2">
+          <label for="bday" class="block text-sm font-medium text-foreground/80">Enter your Birthday</label>
+          <input 
+            type="date" 
+            id="bday" 
+            name="bday" 
+            required 
+            class="w-full h-11 px-4 rounded-xl bg-white/5 border border-white/10 text-foreground focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition-colors"
+          />
+        </div>
+        <Button type="submit" size="lg" class="w-full">Find My Birthday Details</Button>
+      </form>
+    </Card>
+
+    <div id="bday-results" class="hidden animate-in fade-in slide-in-from-bottom-4 duration-700">
+      <div class="text-center mb-8">
+        <h2 class="text-3xl font-heading font-bold mb-2">You have <span id="days-left" class="text-primary tabular-nums">0</span> days left!</h2>
+        <p class="text-xl text-foreground/80">until you turn <strong id="turning-age" class="text-secondary tabular-nums">0</strong> years old.</p>
+      </div>
+      
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <Card padding="md" class="text-center">
+          <h3 class="text-sm font-medium text-foreground/60 mb-2">Next Birthday Date</h3>
+          <p id="next-date" class="text-2xl font-semibold">---</p>
+        </Card>
+        <Card padding="md" class="text-center">
+          <h3 class="text-sm font-medium text-foreground/60 mb-2">Day of the Week</h3>
+          <p id="weekday" class="text-2xl font-semibold">---</p>
+        </Card>
+      </div>
+    </div>
+
+    <!-- SEO Content Block -->
+    <article class="prose prose-invert prose-lg max-w-none mt-20 prose-headings:font-heading prose-a:text-primary">
+      <h2>How Does the Birthday Calculator Work?</h2>
+      <p>
+        A Birthday Calculator is a specialized tool that not only determines your current age but specifically focuses on your upcoming celebration. By inputting your date of birth, our algorithm calculates the precise number of days remaining until your next birthday.
+      </p>
+      <h3>Why Keep Track of Your Birthday?</h3>
+      <p>
+        Whether you are planning a massive 21st birthday bash, coordinating a surprise 50th anniversary for a parent, or simply excitedly counting down the days to your own special day, knowing exactly how much time is left helps with:
+      </p>
+      <ul>
+        <li>Booking venues and sending invitations in advance.</li>
+        <li>Setting personal goals to achieve before you turn a year older.</li>
+        <li>Finding out what day of the week your birthday will fall on so you can request time off work.</li>
+      </ul>
+      <p>
+        Our tool automatically adjusts for leap years and varying month lengths, ensuring the countdown is always mathematically perfect.
+      </p>
+    </article>
+  </div>
+</Layout>
+
+<script>
+  import { calculateBirthdayInfo } from '../lib/birthday';
+
+  const form = document.getElementById('birthday-form');
+  const bdayInput = document.getElementById('bday') as HTMLInputElement;
+
+  form?.addEventListener('submit', (e) => {
+    e.preventDefault();
+    const bday = new Date(bdayInput.value);
+    
+    if (isNaN(bday.getTime())) {
+      alert("Please enter a valid date.");
+      return;
+    }
+
+    const info = calculateBirthdayInfo(bday);
+    
+    document.getElementById('bday-results')?.classList.remove('hidden');
+    
+    const daysLeftEl = document.getElementById('days-left');
+    const turningAgeEl = document.getElementById('turning-age');
+    const nextDateEl = document.getElementById('next-date');
+    const weekdayEl = document.getElementById('weekday');
+
+    if (daysLeftEl) daysLeftEl.textContent = info.daysUntil.toString();
+    if (turningAgeEl) turningAgeEl.textContent = info.turningAge.toString();
+    
+    if (nextDateEl) {
+      nextDateEl.textContent = info.nextDate.toLocaleDateString(undefined, { 
+        year: 'numeric', 
+        month: 'long', 
+        day: 'numeric' 
+      });
+    }
+    
+    if (weekdayEl) {
+      weekdayEl.textContent = info.nextDate.toLocaleDateString(undefined, { weekday: 'long' });
+    }
+  });
+</script>

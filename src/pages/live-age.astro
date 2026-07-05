@@ -1,0 +1,145 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Card from '../components/Card.astro';
+import Button from '../components/Button.astro';
+
+const seoSchema = {
+  "@context": "https://schema.org",
+  "@type": "WebApplication",
+  "name": "Live Age Counter",
+  "url": "https://example.com/live-age",
+  "description": "Watch your age increase live down to the millisecond.",
+  "applicationCategory": "CalculatorApplication"
+};
+---
+
+<Layout title="Live Age Counter | Watch Your Age Tick Up Live" description="A fascinating live counter showing your exact age ticking up in years, months, days, hours, minutes, and seconds." schema={seoSchema}>
+  
+  <div class="container mx-auto px-4 py-16 max-w-4xl">
+    <div class="text-center mb-12">
+      <h1 class="text-4xl md:text-5xl font-heading font-bold mb-4 tracking-tight">
+        Live Age <span class="text-transparent bg-clip-text bg-gradient-to-r from-primary to-secondary">Counter</span>
+      </h1>
+      <p class="text-lg text-foreground/80 max-w-2xl mx-auto">
+        Watch your exact age tick up live, down to the second.
+      </p>
+    </div>
+
+    <Card padding="lg" class="max-w-xl mx-auto shadow-2xl border-white/20 relative overflow-hidden mb-12">
+      <form id="live-age-form" class="space-y-6 relative z-10">
+        <div class="space-y-2">
+          <label for="dob" class="block text-sm font-medium text-foreground/80">Date & Time of Birth</label>
+          <input 
+            type="datetime-local" 
+            id="dob" 
+            required 
+            class="w-full h-11 px-4 rounded-xl bg-white/5 border border-white/10 text-foreground focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition-colors"
+          />
+        </div>
+        <Button type="submit" size="lg" class="w-full">Start Live Counter</Button>
+      </form>
+    </Card>
+
+    <div id="live-display" class="hidden animate-in fade-in zoom-in-95 duration-700">
+      
+      <Card padding="lg" class="bg-primary/5 border-primary/20 max-w-3xl mx-auto text-center relative overflow-hidden">
+        <!-- Live pulse background effect -->
+        <div class="absolute inset-0 bg-primary/10 animate-pulse pointer-events-none opacity-50"></div>
+        
+        <h2 class="text-xl font-medium text-foreground/80 mb-6 relative z-10">You are exactly:</h2>
+        
+        <div class="flex flex-col md:flex-row justify-center items-center gap-4 md:gap-8 font-mono font-bold relative z-10 mb-8">
+          <div class="flex items-baseline gap-2">
+            <span id="la-years" class="text-5xl md:text-7xl text-primary tabular-nums">0</span>
+            <span class="text-lg text-foreground/60">Years</span>
+          </div>
+          <div class="flex items-baseline gap-2">
+            <span id="la-months" class="text-5xl md:text-7xl text-secondary tabular-nums">0</span>
+            <span class="text-lg text-foreground/60">Months</span>
+          </div>
+          <div class="flex items-baseline gap-2">
+            <span id="la-days" class="text-5xl md:text-7xl text-accent tabular-nums">0</span>
+            <span class="text-lg text-foreground/60">Days</span>
+          </div>
+        </div>
+
+        <div class="grid grid-cols-3 gap-4 border-t border-white/10 pt-6 relative z-10">
+          <div>
+            <div id="la-hours" class="text-3xl font-mono font-bold tabular-nums">0</div>
+            <div class="text-xs text-foreground/60 uppercase mt-1">Hours</div>
+          </div>
+          <div>
+            <div id="la-minutes" class="text-3xl font-mono font-bold tabular-nums">0</div>
+            <div class="text-xs text-foreground/60 uppercase mt-1">Minutes</div>
+          </div>
+          <div>
+            <div id="la-seconds" class="text-3xl font-mono font-bold text-primary tabular-nums">0</div>
+            <div class="text-xs text-foreground/60 uppercase mt-1">Seconds</div>
+          </div>
+        </div>
+      </Card>
+
+    </div>
+  </div>
+</Layout>
+
+<script>
+  import { calculateDateDifference } from '../lib/dateDifference';
+
+  const form = document.getElementById('live-age-form');
+  const dobInput = document.getElementById('dob') as HTMLInputElement;
+  
+  let timerInterval: number | undefined;
+
+  function updateLiveAge(dob: Date) {
+    const now = new Date();
+    
+    // We use dateDifference because it precisely computes the years, months, days, hours, mins, secs breakdown 
+    // between two exact timestamps.
+    const diff = calculateDateDifference(dob, now);
+
+    const els = [
+      { id: 'la-years', val: diff.years },
+      { id: 'la-months', val: diff.months },
+      { id: 'la-days', val: diff.days },
+      { id: 'la-hours', val: diff.hours },
+      { id: 'la-minutes', val: diff.minutes },
+      { id: 'la-seconds', val: diff.seconds },
+    ];
+
+    els.forEach(el => {
+      const node = document.getElementById(el.id);
+      // pad seconds/minutes/hours for cool digital clock effect
+      if (node) {
+        if (el.id.includes('seconds') || el.id.includes('minutes') || el.id.includes('hours')) {
+           node.textContent = el.val.toString().padStart(2, '0');
+        } else {
+           node.textContent = el.val.toString();
+        }
+      }
+    });
+  }
+
+  form?.addEventListener('submit', (e) => {
+    e.preventDefault();
+    const dob = new Date(dobInput.value);
+    
+    if (isNaN(dob.getTime())) return;
+    if (dob.getTime() > Date.now()) {
+      alert("Date of birth cannot be in the future!");
+      return;
+    }
+
+    if (timerInterval) clearInterval(timerInterval);
+
+    document.getElementById('live-display')?.classList.remove('hidden');
+    
+    // Initial call
+    updateLiveAge(dob);
+
+    // Set interval to tick every second
+    timerInterval = window.setInterval(() => {
+      updateLiveAge(dob);
+    }, 1000);
+  });
+</script>

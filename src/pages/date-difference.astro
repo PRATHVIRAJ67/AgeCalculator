@@ -1,0 +1,168 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Card from '../components/Card.astro';
+import Button from '../components/Button.astro';
+
+const seoSchema = {
+  "@context": "https://schema.org",
+  "@type": "WebApplication",
+  "name": "Advanced Date & Time Difference Calculator",
+  "url": "https://example.com/date-difference",
+  "description": "Calculate the exact number of days, weeks, months, years, hours, and seconds between any two dates.",
+  "applicationCategory": "CalculatorApplication"
+};
+---
+
+<Layout title="Date Difference Calculator | Exact Days, Hours & Seconds Between Dates" description="Calculate the exact difference between two dates and times. Find out how many days, weeks, months, years, hours, and seconds apart two specific moments are." schema={seoSchema}>
+  
+  <div class="container mx-auto px-4 py-16 max-w-4xl">
+    <div class="text-center mb-12">
+      <h1 class="text-4xl md:text-5xl font-heading font-bold mb-4 tracking-tight">
+        Date Difference <span class="text-transparent bg-clip-text bg-gradient-to-r from-primary to-secondary">Calculator</span>
+      </h1>
+      <p class="text-lg text-foreground/80 max-w-2xl mx-auto">
+        Find out exactly how much time has passed—or will pass—between two exact dates and times.
+      </p>
+    </div>
+
+    <Card padding="lg" class="max-w-2xl mx-auto shadow-2xl border-white/20 relative overflow-hidden mb-16">
+      <form id="datediff-form" class="space-y-6 relative z-10">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div class="space-y-2">
+            <label for="date1" class="block text-sm font-medium text-foreground/80">Start Date & Time</label>
+            <input 
+              type="datetime-local" 
+              id="date1" 
+              required 
+              class="w-full h-11 px-4 rounded-xl bg-white/5 border border-white/10 text-foreground focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition-colors"
+            />
+          </div>
+          <div class="space-y-2">
+            <label for="date2" class="block text-sm font-medium text-foreground/80">End Date & Time</label>
+            <input 
+              type="datetime-local" 
+              id="date2" 
+              required 
+              class="w-full h-11 px-4 rounded-xl bg-white/5 border border-white/10 text-foreground focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition-colors"
+            />
+          </div>
+        </div>
+
+        <div class="flex items-center space-x-3 bg-white/5 p-4 rounded-xl border border-white/10">
+          <input type="checkbox" id="include-end" class="w-5 h-5 rounded border-white/20 text-primary focus:ring-primary focus:ring-offset-background" />
+          <label for="include-end" class="text-sm font-medium text-foreground">Include End Date in Calculation (Adds 1 Day)</label>
+        </div>
+
+        <Button type="submit" size="lg" class="w-full">Calculate Difference</Button>
+      </form>
+    </Card>
+
+    <div id="datediff-results" class="hidden animate-in fade-in slide-in-from-bottom-4 duration-700">
+      <h2 class="text-2xl font-heading font-bold text-center mb-6">Total Difference</h2>
+      
+      <div class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-4 gap-4">
+        <Card padding="sm" class="text-center bg-primary/10 border-primary/20">
+          <div class="text-sm text-foreground/60 mb-1">Total Years</div>
+          <div id="diff-years" class="text-3xl font-mono font-bold text-primary tabular-nums">0</div>
+        </Card>
+        <Card padding="sm" class="text-center bg-secondary/10 border-secondary/20">
+          <div class="text-sm text-foreground/60 mb-1">Total Months</div>
+          <div id="diff-months" class="text-3xl font-mono font-bold text-secondary tabular-nums">0</div>
+        </Card>
+        <Card padding="sm" class="text-center bg-accent/10 border-accent/20">
+          <div class="text-sm text-foreground/60 mb-1">Total Weeks</div>
+          <div id="diff-weeks" class="text-3xl font-mono font-bold text-accent tabular-nums">0</div>
+        </Card>
+        <Card padding="sm" class="text-center bg-white/10 border-white/20">
+          <div class="text-sm text-foreground/60 mb-1">Total Days</div>
+          <div id="diff-days" class="text-3xl font-mono font-bold text-foreground tabular-nums">0</div>
+        </Card>
+      </div>
+
+      <h3 class="text-xl font-heading font-semibold text-center mt-8 mb-4">Detailed Time Breakdown</h3>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+        <Card padding="sm" class="text-center bg-white/5">
+          <div class="text-sm text-foreground/60 mb-1">Hours</div>
+          <div id="diff-hours" class="text-2xl font-mono font-bold tabular-nums">0</div>
+        </Card>
+        <Card padding="sm" class="text-center bg-white/5">
+          <div class="text-sm text-foreground/60 mb-1">Minutes</div>
+          <div id="diff-minutes" class="text-2xl font-mono font-bold tabular-nums">0</div>
+        </Card>
+        <Card padding="sm" class="text-center bg-white/5">
+          <div class="text-sm text-foreground/60 mb-1">Seconds</div>
+          <div id="diff-seconds" class="text-2xl font-mono font-bold tabular-nums">0</div>
+        </Card>
+      </div>
+    </div>
+
+    <article class="prose prose-invert prose-lg max-w-none mt-20 prose-headings:font-heading prose-a:text-primary">
+      <h2>Advanced Date Difference Calculations</h2>
+      <p>
+        Most basic calculators only measure the number of calendar days between two points. Our <strong>Advanced Date Difference Calculator</strong> goes significantly further, allowing you to input exact times down to the minute and instantly calculating the difference in hours, minutes, and seconds.
+      </p>
+      <h3>The "Include End Date" Feature</h3>
+      <p>
+        In mathematics, subtracting two dates (e.g., Monday to Tuesday) gives a difference of exactly 1 day. However, in project management, hotel bookings, or payroll, you often need to count both the starting day and the ending day as full days. Toggling the <strong>"Include End Date"</strong> option automatically adjusts the calculation to reflect inclusive counting.
+      </p>
+      <h3>Common Uses for Advanced Date Calculations</h3>
+      <ul>
+        <li><strong>Project Management:</strong> Calculate the exact number of days until a major deadline or product launch.</li>
+        <li><strong>Financial Calculations:</strong> Determine the number of days between payment cycles or interest accrual periods.</li>
+        <li><strong>Personal Milestones:</strong> Figure out how long you have been married, how long you've worked at your current job, or how many exact hours are left until your much-anticipated vacation.</li>
+      </ul>
+    </article>
+  </div>
+</Layout>
+
+<script>
+  import { calculateDateDifference } from '../lib/dateDifference';
+
+  const form = document.getElementById('datediff-form');
+  const d1Input = document.getElementById('date1') as HTMLInputElement;
+  const d2Input = document.getElementById('date2') as HTMLInputElement;
+  const includeEndToggle = document.getElementById('include-end') as HTMLInputElement;
+
+  // Set default dates
+  const now = new Date();
+  const later = new Date(now.getTime() + 7 * 24 * 60 * 60 * 1000); // +1 week
+  
+  if (d1Input && d2Input) {
+    now.setMinutes(now.getMinutes() - now.getTimezoneOffset());
+    d1Input.value = now.toISOString().slice(0, 16);
+    
+    later.setMinutes(later.getMinutes() - later.getTimezoneOffset());
+    d2Input.value = later.toISOString().slice(0, 16);
+  }
+
+  form?.addEventListener('submit', (e) => {
+    e.preventDefault();
+    const d1 = new Date(d1Input.value);
+    const d2 = new Date(d2Input.value);
+    
+    if (isNaN(d1.getTime()) || isNaN(d2.getTime())) {
+      alert("Please enter valid dates and times.");
+      return;
+    }
+
+    const diff = calculateDateDifference(d1, d2, includeEndToggle.checked);
+    
+    document.getElementById('datediff-results')?.classList.remove('hidden');
+    
+    // Update main grid
+    const els = [
+      { id: 'diff-years', val: diff.years },
+      { id: 'diff-months', val: diff.months },
+      { id: 'diff-weeks', val: diff.weeks },
+      { id: 'diff-days', val: diff.days },
+      { id: 'diff-hours', val: diff.hours },
+      { id: 'diff-minutes', val: diff.minutes },
+      { id: 'diff-seconds', val: diff.seconds },
+    ];
+
+    els.forEach(el => {
+      const node = document.getElementById(el.id);
+      if (node) node.textContent = el.val.toLocaleString();
+    });
+  });
+</script>

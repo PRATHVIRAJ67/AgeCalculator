@@ -1,0 +1,116 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Card from '../components/Card.astro';
+import Button from '../components/Button.astro';
+
+const seoSchema = {
+  "@context": "https://schema.org",
+  "@type": "WebApplication",
+  "name": "Working Days Calculator",
+  "url": "https://example.com/working-days",
+  "description": "Calculate the exact number of business and working days between two dates, excluding weekends.",
+  "applicationCategory": "CalculatorApplication"
+};
+---
+
+<Layout title="Working Days Calculator | Business Days Between Dates" description="Easily calculate the number of working days and weekends between two dates. Perfect for HR, payroll, project management, and business planning." schema={seoSchema}>
+  
+  <div class="container mx-auto px-4 py-16 max-w-4xl">
+    <div class="text-center mb-12">
+      <h1 class="text-4xl md:text-5xl font-heading font-bold mb-4 tracking-tight">
+        Working Days <span class="text-transparent bg-clip-text bg-gradient-to-r from-primary to-secondary">Calculator</span>
+      </h1>
+      <p class="text-lg text-foreground/80 max-w-2xl mx-auto">
+        Calculate the exact number of business days, excluding weekends, between any two dates.
+      </p>
+    </div>
+
+    <Card padding="lg" class="max-w-xl mx-auto shadow-2xl border-white/20 relative overflow-hidden mb-16">
+      <form id="working-days-form" class="space-y-6 relative z-10">
+        <div class="space-y-2">
+          <label for="startDate" class="block text-sm font-medium text-foreground/80">Start Date</label>
+          <input 
+            type="date" 
+            id="startDate" 
+            required 
+            class="w-full h-11 px-4 rounded-xl bg-white/5 border border-white/10 text-foreground focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition-colors"
+          />
+        </div>
+        <div class="space-y-2">
+          <label for="endDate" class="block text-sm font-medium text-foreground/80">End Date</label>
+          <input 
+            type="date" 
+            id="endDate" 
+            required 
+            class="w-full h-11 px-4 rounded-xl bg-white/5 border border-white/10 text-foreground focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition-colors"
+          />
+        </div>
+        <Button type="submit" size="lg" class="w-full">Calculate Working Days</Button>
+      </form>
+    </Card>
+
+    <div id="working-results" class="hidden animate-in fade-in slide-in-from-bottom-4 duration-700">
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <Card padding="md" class="text-center bg-primary/10 border-primary/20">
+          <div class="text-sm text-foreground/60 mb-2">Total Working Days</div>
+          <div id="res-working" class="text-5xl font-mono font-bold text-primary tabular-nums">0</div>
+        </Card>
+        <Card padding="md" class="text-center bg-white/5">
+          <div class="text-sm text-foreground/60 mb-2">Weekend Days</div>
+          <div id="res-weekends" class="text-5xl font-mono font-bold tabular-nums">0</div>
+        </Card>
+        <Card padding="md" class="text-center bg-white/5">
+          <div class="text-sm text-foreground/60 mb-2">Total Calendar Days</div>
+          <div id="res-total" class="text-5xl font-mono font-bold tabular-nums text-foreground/50">0</div>
+        </Card>
+      </div>
+    </div>
+
+    <article class="prose prose-invert prose-lg max-w-none mt-20 prose-headings:font-heading prose-a:text-primary">
+      <h2>Why use a Working Days Calculator?</h2>
+      <p>
+        In the professional world, calendar days are rarely an accurate measure of time for project planning, payroll, or deliveries. Our <strong>Working Days Calculator</strong> strips away weekends (Saturdays and Sundays) so you know exactly how many actionable business days exist within a specific time frame.
+      </p>
+      <h3>Perfect For:</h3>
+      <ul>
+        <li><strong>Project Managers:</strong> Accurately estimate sprint durations and development cycles.</li>
+        <li><strong>HR & Payroll:</strong> Calculate prorated pay, vacation days, or sick leave accurately.</li>
+        <li><strong>Logistics:</strong> Determine accurate delivery times when shipping strictly operates on business days.</li>
+      </ul>
+      <p>
+        Note: The calculator computes days inclusively. For instance, if you start a project on Monday and end it on Tuesday, that is counted as exactly 2 working days.
+      </p>
+    </article>
+  </div>
+</Layout>
+
+<script>
+  import { calculateWorkingDays } from '../lib/workingDays';
+
+  const form = document.getElementById('working-days-form');
+  const startInput = document.getElementById('startDate') as HTMLInputElement;
+  const endInput = document.getElementById('endDate') as HTMLInputElement;
+
+  form?.addEventListener('submit', (e) => {
+    e.preventDefault();
+    const start = new Date(startInput.value);
+    const end = new Date(endInput.value);
+    
+    if (isNaN(start.getTime()) || isNaN(end.getTime())) {
+      alert("Please enter valid dates.");
+      return;
+    }
+
+    const result = calculateWorkingDays(start, end);
+    
+    document.getElementById('working-results')?.classList.remove('hidden');
+    
+    const workingEl = document.getElementById('res-working');
+    const weekendsEl = document.getElementById('res-weekends');
+    const totalEl = document.getElementById('res-total');
+
+    if (workingEl) workingEl.textContent = result.workingDays.toLocaleString();
+    if (weekendsEl) weekendsEl.textContent = result.weekends.toLocaleString();
+    if (totalEl) totalEl.textContent = result.totalDays.toLocaleString();
+  });
+</script>
