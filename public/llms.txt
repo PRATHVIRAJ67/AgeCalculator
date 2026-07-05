@@ -1,4 +1,4 @@
-# Date Age Calculator
+# Age & Time Calculator
 
 > Free online age, date, and time calculators. Find your exact age in years, months, weeks, days, hours, minutes, and seconds; calculate the difference between any two dates; add or subtract days, hours, minutes, and seconds; count working days; and more.
 
