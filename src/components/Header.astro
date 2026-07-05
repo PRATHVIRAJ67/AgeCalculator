@@ -42,13 +42,14 @@ const funLinks = FUN_CALCULATORS;
         ))
       }
       <div class="h-4 w-px bg-black/10 dark:bg-white/20 mx-2"></div>
-      <div class="relative group">
+      <div class="relative group" id="more-tools-dropdown">
         <button
-          class="text-sm font-medium text-foreground/70 group-hover:text-foreground transition-all flex items-center gap-1"
+          id="more-tools-btn"
+          class="text-sm font-medium text-foreground/70 group-hover:text-foreground transition-all flex items-center gap-1 focus:outline-none"
         >
           More Tools
           <svg
-            class="w-4 h-4 opacity-50"
+            class="w-4 h-4 opacity-50 transition-transform duration-200 group-[.open]:rotate-180"
             fill="none"
             stroke="currentColor"
             viewBox="0 0 24 24"
@@ -60,7 +61,8 @@ const funLinks = FUN_CALCULATORS;
           >
         </button>
         <div
-          class="absolute right-0 top-full mt-2 w-48 rounded-xl border border-black/10 dark:border-white/10 bg-background/95 backdrop-blur-xl shadow-2xl opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 transform origin-top-right scale-95 group-hover:scale-100"
+          id="more-tools-menu"
+          class="absolute right-0 top-full mt-2 w-48 rounded-xl border border-black/10 dark:border-white/10 bg-background/95 backdrop-blur-xl shadow-2xl opacity-0 invisible group-hover:opacity-100 group-hover:visible group-[.open]:opacity-100 group-[.open]:visible transition-all duration-200 transform origin-top-right scale-95 group-hover:scale-100 group-[.open]:scale-100"
         >
           <div class="p-2 flex flex-col">
             {
@@ -121,7 +123,7 @@ const funLinks = FUN_CALCULATORS;
   <!-- Mobile Navigation Menu (Hidden by default) -->
   <div
     id="mobile-menu"
-    class="lg:hidden fixed inset-x-0 top-[64px] bg-background/95 backdrop-blur-2xl border-b border-black/10 dark:border-white/10 h-[calc(100vh-64px)] overflow-y-auto transform transition-transform duration-300 ease-in-out translate-x-full shadow-2xl"
+    class="lg:hidden fixed inset-x-0 top-[64px] bg-background/95 backdrop-blur-2xl border-b border-black/10 dark:border-white/10 h-[calc(100dvh-64px)] overflow-y-auto transform transition-transform duration-300 ease-in-out translate-x-full shadow-2xl"
   >
     <div class="container mx-auto px-4 py-8 flex flex-col gap-6">
       <div class="flex flex-col gap-2">
@@ -194,6 +196,22 @@ const funLinks = FUN_CALCULATORS;
       iconOpen?.classList.add("hidden");
       iconClose?.classList.remove("hidden");
       document.body.style.overflow = "hidden"; // Prevent scrolling
+    }
+  });
+
+  // Desktop Dropdown Toggle Logic
+  const moreToolsBtn = document.getElementById("more-tools-btn");
+  const moreToolsDropdown = document.getElementById("more-tools-dropdown");
+
+  moreToolsBtn?.addEventListener("click", (e) => {
+    e.stopPropagation();
+    moreToolsDropdown?.classList.toggle("open");
+  });
+
+  document.addEventListener("click", (e) => {
+    const target = e.target as HTMLElement;
+    if (!moreToolsDropdown?.contains(target)) {
+      moreToolsDropdown?.classList.remove("open");
     }
   });
 </script>

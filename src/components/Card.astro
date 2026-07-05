@@ -2,7 +2,7 @@
 interface Props {
   class?: string;
   padding?: 'none' | 'sm' | 'md' | 'lg';
-  as?: string;
+  as?: any;
 }
 
 const { 
@@ -11,11 +11,11 @@ const {
   as: Tag = 'div' 
 } = Astro.props;
 
-const paddings = {
+const paddings: Record<'none' | 'sm' | 'md' | 'lg', string> = {
   none: '',
-  sm: 'p-4',
-  md: 'p-6',
-  lg: 'p-8'
+  sm: 'p-3 sm:p-4',
+  md: 'p-4 sm:p-6',
+  lg: 'p-5 sm:p-8'
 };
 ---
 
